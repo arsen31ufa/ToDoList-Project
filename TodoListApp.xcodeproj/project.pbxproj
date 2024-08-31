@@ -8,22 +8,55 @@
 
 /* Begin PBXBuildFile section */
 		9E5F82DB2C82B2EE00285147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */; };
-		9E5F82DD2C82B2EE00285147 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82DC2C82B2EE00285147 /* SceneDelegate.swift */; };
 		9E5F82DF2C82B2EE00285147 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82DE2C82B2EE00285147 /* ViewController.swift */; };
 		9E5F82E22C82B2EE00285147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E12C82B2EE00285147 /* Base */; };
 		9E5F82E42C82B2EF00285147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E32C82B2EF00285147 /* Assets.xcassets */; };
 		9E5F82E72C82B2EF00285147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E62C82B2EF00285147 /* Base */; };
+		9E75D0502C82D20300AFA622 /* CoreDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D04F2C82D20300AFA622 /* CoreDataServices.swift */; };
+		9E75D0532C82DCA200AFA622 /* TodoCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0512C82DCA200AFA622 /* TodoCoreData.xcdatamodeld */; };
+		9E75D0572C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0552C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift */; };
+		9E75D05A2C82F50100AFA622 /* LoadingAssebly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */; };
+		9E75D05C2C82F51A00AFA622 /* LoadingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */; };
+		9E75D05E2C82F52900AFA622 /* LoadingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */; };
+		9E75D0602C82F53700AFA622 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */; };
+		9E75D0622C82F56100AFA622 /* Design+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0612C82F56100AFA622 /* Design+View.swift */; };
+		9E75D0652C82FA8700AFA622 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9E75D0642C82FA8700AFA622 /* SnapKit */; };
+		9E75D06C2C82FCCA00AFA622 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D0672C82FCC900AFA622 /* Inter-Medium.otf */; };
+		9E75D06D2C82FCCA00AFA622 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D0682C82FCCA00AFA622 /* Inter-Regular.otf */; };
+		9E75D06E2C82FCCA00AFA622 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D0692C82FCCA00AFA622 /* Inter-Bold.otf */; };
+		9E75D06F2C82FCCA00AFA622 /* Inter-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D06A2C82FCCA00AFA622 /* Inter-ExtraLight.otf */; };
+		9E75D0702C82FCCA00AFA622 /* Inter-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D06B2C82FCCA00AFA622 /* Inter-Light.otf */; };
+		9E75D0722C82FDE100AFA622 /* Font+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0712C82FDE100AFA622 /* Font+Colors.swift */; };
+		9EF2AA392C82BC8E004B991F /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA382C82BC8E004B991F /* Api.swift */; };
+		9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */; };
+		9EF2AA3F2C82C9C8004B991F /* Date+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9E5F82D72C82B2EE00285147 /* TodoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E5F82DC2C82B2EE00285147 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9E5F82DE2C82B2EE00285147 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E5F82E12C82B2EE00285147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E5F82E32C82B2EF00285147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E5F82E62C82B2EF00285147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E5F82E82C82B2EF00285147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E75D04F2C82D20300AFA622 /* CoreDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServices.swift; sourceTree = "<group>"; };
+		9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoCoreData.xcdatamodel; sourceTree = "<group>"; };
+		9E75D0552C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAssebly.swift; sourceTree = "<group>"; };
+		9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingRouter.swift; sourceTree = "<group>"; };
+		9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPresenter.swift; sourceTree = "<group>"; };
+		9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		9E75D0612C82F56100AFA622 /* Design+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Design+View.swift"; sourceTree = "<group>"; };
+		9E75D0672C82FCC900AFA622 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
+		9E75D0682C82FCCA00AFA622 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
+		9E75D0692C82FCCA00AFA622 /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
+		9E75D06A2C82FCCA00AFA622 /* Inter-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight.otf"; sourceTree = "<group>"; };
+		9E75D06B2C82FCCA00AFA622 /* Inter-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.otf"; sourceTree = "<group>"; };
+		9E75D0712C82FDE100AFA622 /* Font+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Colors.swift"; sourceTree = "<group>"; };
+		9EF2AA382C82BC8E004B991F /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel_json.swift; sourceTree = "<group>"; };
+		9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Time.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E75D0652C82FA8700AFA622 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +90,103 @@
 		9E5F82D92C82B2EE00285147 /* TodoListApp */ = {
 			isa = PBXGroup;
 			children = (
-				9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */,
-				9E5F82DC2C82B2EE00285147 /* SceneDelegate.swift */,
-				9E5F82DE2C82B2EE00285147 /* ViewController.swift */,
-				9E5F82E02C82B2EE00285147 /* Main.storyboard */,
-				9E5F82E32C82B2EF00285147 /* Assets.xcassets */,
-				9E5F82E52C82B2EF00285147 /* LaunchScreen.storyboard */,
 				9E5F82E82C82B2EF00285147 /* Info.plist */,
+				9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */,
+				9EF2AA3A2C82BD58004B991F /* Models */,
+				9EF2AA362C82BC03004B991F /* Hapler */,
+				9EF2AA342C82BBC3004B991F /* Flow */,
+				9EF2AA332C82BBAD004B991F /* Resourses */,
 			);
 			path = TodoListApp;
+			sourceTree = "<group>";
+		};
+		9E75D04E2C82D12500AFA622 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D04F2C82D20300AFA622 /* CoreDataServices.swift */,
+				9E75D0552C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift */,
+				9E75D0512C82DCA200AFA622 /* TodoCoreData.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		9E75D0582C82F4E200AFA622 /* LoadingFlow */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */,
+				9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */,
+				9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */,
+				9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */,
+			);
+			path = LoadingFlow;
+			sourceTree = "<group>";
+		};
+		9E75D0662C82FC9300AFA622 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D0692C82FCCA00AFA622 /* Inter-Bold.otf */,
+				9E75D06A2C82FCCA00AFA622 /* Inter-ExtraLight.otf */,
+				9E75D06B2C82FCCA00AFA622 /* Inter-Light.otf */,
+				9E75D0672C82FCC900AFA622 /* Inter-Medium.otf */,
+				9E75D0682C82FCCA00AFA622 /* Inter-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9EF2AA332C82BBAD004B991F /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D0662C82FC9300AFA622 /* Fonts */,
+				9EF2AA352C82BBD6004B991F /* Other */,
+				9E5F82E32C82B2EF00285147 /* Assets.xcassets */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
+		9EF2AA342C82BBC3004B991F /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D0582C82F4E200AFA622 /* LoadingFlow */,
+				9E5F82DE2C82B2EE00285147 /* ViewController.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		9EF2AA352C82BBD6004B991F /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				9E5F82E02C82B2EE00285147 /* Main.storyboard */,
+				9E5F82E52C82B2EF00285147 /* LaunchScreen.storyboard */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		9EF2AA362C82BC03004B991F /* Hapler */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D04E2C82D12500AFA622 /* CoreData */,
+				9EF2AA3D2C82C9AB004B991F /* Extensoins */,
+				9EF2AA382C82BC8E004B991F /* Api.swift */,
+			);
+			path = Hapler;
+			sourceTree = "<group>";
+		};
+		9EF2AA3A2C82BD58004B991F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9EF2AA3D2C82C9AB004B991F /* Extensoins */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D0712C82FDE100AFA622 /* Font+Colors.swift */,
+				9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */,
+				9E75D0612C82F56100AFA622 /* Design+View.swift */,
+			);
+			path = Extensoins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +205,9 @@
 			dependencies = (
 			);
 			name = TodoListApp;
+			packageProductDependencies = (
+				9E75D0642C82FA8700AFA622 /* SnapKit */,
+			);
 			productName = TodoListApp;
 			productReference = 9E5F82D72C82B2EE00285147 /* TodoListApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +236,9 @@
 				Base,
 			);
 			mainGroup = 9E5F82CE2C82B2EE00285147;
+			packageReferences = (
+				9E75D0632C82FA8700AFA622 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 9E5F82D82C82B2EE00285147 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,8 +254,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E5F82E42C82B2EF00285147 /* Assets.xcassets in Resources */,
+				9E75D06F2C82FCCA00AFA622 /* Inter-ExtraLight.otf in Resources */,
+				9E75D06D2C82FCCA00AFA622 /* Inter-Regular.otf in Resources */,
 				9E5F82E72C82B2EF00285147 /* Base in Resources */,
 				9E5F82E22C82B2EE00285147 /* Base in Resources */,
+				9E75D0702C82FCCA00AFA622 /* Inter-Light.otf in Resources */,
+				9E75D06C2C82FCCA00AFA622 /* Inter-Medium.otf in Resources */,
+				9E75D06E2C82FCCA00AFA622 /* Inter-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +271,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E75D0502C82D20300AFA622 /* CoreDataServices.swift in Sources */,
+				9E75D0622C82F56100AFA622 /* Design+View.swift in Sources */,
+				9EF2AA3F2C82C9C8004B991F /* Date+Time.swift in Sources */,
+				9E75D05A2C82F50100AFA622 /* LoadingAssebly.swift in Sources */,
+				9E75D0532C82DCA200AFA622 /* TodoCoreData.xcdatamodeld in Sources */,
+				9EF2AA392C82BC8E004B991F /* Api.swift in Sources */,
+				9E75D05C2C82F51A00AFA622 /* LoadingRouter.swift in Sources */,
+				9E75D0572C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift in Sources */,
 				9E5F82DF2C82B2EE00285147 /* ViewController.swift in Sources */,
 				9E5F82DB2C82B2EE00285147 /* AppDelegate.swift in Sources */,
-				9E5F82DD2C82B2EE00285147 /* SceneDelegate.swift in Sources */,
+				9E75D05E2C82F52900AFA622 /* LoadingPresenter.swift in Sources */,
+				9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */,
+				9E75D0722C82FDE100AFA622 /* Font+Colors.swift in Sources */,
+				9E75D0602C82F53700AFA622 /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +507,39 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9E75D0632C82FA8700AFA622 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E75D0642C82FA8700AFA622 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E75D0632C82FA8700AFA622 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		9E75D0512C82DCA200AFA622 /* TodoCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */,
+			);
+			currentVersion = 9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */;
+			name = TodoCoreData.xcdatamodeld;
+			path = /Users/havedope/Desktop/TodoListApp/TodoList/TodoListApp/Hapler/CoreData/TodoCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9E5F82CF2C82B2EE00285147 /* Project object */;
 }
