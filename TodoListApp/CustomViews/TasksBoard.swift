@@ -13,6 +13,10 @@ enum taskFormType{
 }
 
 
+protocol TasksBoardAddTask_delegate{
+    func addNewTask()
+}
+
 class TasksBoard: UIView{
     
     private lazy var conteynirView: UIView = {
@@ -21,11 +25,11 @@ class TasksBoard: UIView{
         view.layer.borderColor = Colors.lightPurple.cgColor
         view.layer.borderWidth = 1
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.3 // Прозрачность тени
-        view.layer.shadowOffset = CGSize(width: 2, height: 2) // Смещение тени
-        view.layer.shadowRadius = 4 // Радиус размытия тени
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 2, height: 2)
+        view.layer.shadowRadius = 4
         view.layer.cornerRadius = 15
-        view.layer.masksToBounds = false // Важно: выключает обрезку слоя, иначе тень будет обрезана
+        view.layer.masksToBounds = false
         return view
     }()
     
@@ -41,10 +45,11 @@ class TasksBoard: UIView{
     private lazy var currentDateLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont(name: CustomFonts.interLight, size: 20)
+        label.font = UIFont(name: CustomFonts.interLight, size: 15)
         label.textColor = .gray
         return label
     }()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.bounces = false
@@ -58,6 +63,7 @@ class TasksBoard: UIView{
         view.backgroundColor = .clear
         return view
     }()
+    
     private lazy var taskVStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -67,8 +73,21 @@ class TasksBoard: UIView{
         return stack
     }()
     
+    
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "addButton"), for: .normal)
+        button.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func addButtonAction(){
+        delegate?.addNewTask()
+    }
+    
     private let dataProperty:taskFormType
     private let todoList:[TodoEntity]
+    var delegate:TasksBoardAddTask_delegate?
     
     init(dataProperty: taskFormType, todoList: [TodoEntity]) {
         self.dataProperty = dataProperty
@@ -92,7 +111,8 @@ extension TasksBoard: Designable{
             conteynirView,
             dayLabel,
             currentDateLabel,
-            scrollView].forEach(self.addSubview)
+            scrollView,
+            addButton].forEach(self.addSubview)
         
         scrollView.addSubview(scrollContentView)
         scrollContentView.addSubview(taskVStack)
@@ -105,14 +125,18 @@ extension TasksBoard: Designable{
         
         dayLabel.snp.makeConstraints { make in
             make.top.leading.equalTo(conteynirView).offset(20)
-            make.width.equalTo(100)
             make.height.equalTo(30)
         }
         
         currentDateLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel)
-            make.leading.equalTo(dayLabel)
-            make.trailing.equalTo(conteynirView).offset(20)
+            make.leading.equalTo(dayLabel.snp.trailing).offset(10)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.trailing.equalTo(conteynirView).inset(10)
+            make.centerY.equalTo(dayLabel)
+            make.height.width.equalTo(35)
         }
         
         scrollView.snp.makeConstraints { make in
@@ -135,26 +159,48 @@ extension TasksBoard: Designable{
 
 extension TasksBoard {
     
-  private  func configurate(type: taskFormType, todoList: [TodoEntity]){
+    private func configurate(type: taskFormType, todoList: [TodoEntity]) {
+        var todoListFilter = [TodoEntity]()
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        
         switch type {
         case .today:
-            dayLabel.text = "Cегодня".uppercased()
+            dayLabel.text = "Сегодня".uppercased()
             dayLabel.textColor = Colors.blackPurple
+            currentDateLabel.text = "\(today.formattedDate())"
+            
+            todoListFilter = todoList.filter { item in
+                return calendar.isDate(item.date, inSameDayAs: today)
+            }
+            
         case .tommorow:
             dayLabel.text = "Завтра".uppercased()
             dayLabel.textColor = .gray
+            
+            todoListFilter = todoList.filter { item in
+                return calendar.isDate(item.date, inSameDayAs: tomorrow)
+            }
+            
         case .future:
             dayLabel.text = "Потом".uppercased()
             dayLabel.textColor = .gray
+            
+            todoListFilter = todoList.filter { item in
+                return item.date > tomorrow || item.date < today
+            }
         }
-      setUpVstack(with: todoList)
+        
+        setUpVstack(with: todoListFilter)
     }
     
-    func setUpVstack(with todoList: [TodoEntity]){
+    func setUpVstack(with todoList: [TodoEntity]) {
         taskVStack.subviews.forEach { (view) in
             view.removeFromSuperview()
         }
-        for (index, task) in todoList.enumerated(){
+        
+        for task in todoList {
             let view = TaskView()
             view.configurate(todo: task)
             taskVStack.addArrangedSubview(view)

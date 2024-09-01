@@ -32,6 +32,8 @@
 		9E75D07B2C8410DD00AFA622 /* MenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07A2C8410DD00AFA622 /* MenuAssembly.swift */; };
 		9E75D07E2C84132100AFA622 /* TasksBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07D2C84132100AFA622 /* TasksBoard.swift */; };
 		9E75D0802C841E1400AFA622 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07F2C841E1400AFA622 /* TaskView.swift */; };
+		9E75D0822C848E2F00AFA622 /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0812C848E2F00AFA622 /* NewTaskView.swift */; };
+		9E75D0852C848E9900AFA622 /* CustomBlurEffectView in Frameworks */ = {isa = PBXBuildFile; productRef = 9E75D0842C848E9900AFA622 /* CustomBlurEffectView */; };
 		9EF2AA392C82BC8E004B991F /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA382C82BC8E004B991F /* Api.swift */; };
 		9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */; };
 		9EF2AA3F2C82C9C8004B991F /* Date+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */; };
@@ -64,6 +66,7 @@
 		9E75D07A2C8410DD00AFA622 /* MenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAssembly.swift; sourceTree = "<group>"; };
 		9E75D07D2C84132100AFA622 /* TasksBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksBoard.swift; sourceTree = "<group>"; };
 		9E75D07F2C841E1400AFA622 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		9E75D0812C848E2F00AFA622 /* NewTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskView.swift; sourceTree = "<group>"; };
 		9EF2AA382C82BC8E004B991F /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel_json.swift; sourceTree = "<group>"; };
 		9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Time.swift"; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E75D0852C848E9900AFA622 /* CustomBlurEffectView in Frameworks */,
 				9E75D0652C82FA8700AFA622 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,6 +164,7 @@
 			children = (
 				9E75D07D2C84132100AFA622 /* TasksBoard.swift */,
 				9E75D07F2C841E1400AFA622 /* TaskView.swift */,
+				9E75D0812C848E2F00AFA622 /* NewTaskView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 			name = TodoListApp;
 			packageProductDependencies = (
 				9E75D0642C82FA8700AFA622 /* SnapKit */,
+				9E75D0842C848E9900AFA622 /* CustomBlurEffectView */,
 			);
 			productName = TodoListApp;
 			productReference = 9E5F82D72C82B2EE00285147 /* TodoListApp.app */;
@@ -269,6 +275,7 @@
 			mainGroup = 9E5F82CE2C82B2EE00285147;
 			packageReferences = (
 				9E75D0632C82FA8700AFA622 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				9E75D0832C848E9900AFA622 /* XCRemoteSwiftPackageReference "CustomBlurEffectView" */,
 			);
 			productRefGroup = 9E5F82D82C82B2EE00285147 /* Products */;
 			projectDirPath = "";
@@ -318,6 +325,7 @@
 				9E5F82DB2C82B2EE00285147 /* AppDelegate.swift in Sources */,
 				9E75D05E2C82F52900AFA622 /* LoadingPresenter.swift in Sources */,
 				9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */,
+				9E75D0822C848E2F00AFA622 /* NewTaskView.swift in Sources */,
 				9E75D0722C82FDE100AFA622 /* Font+Colors.swift in Sources */,
 				9E75D0602C82F53700AFA622 /* LoadingViewController.swift in Sources */,
 				9E75D0802C841E1400AFA622 /* TaskView.swift in Sources */,
@@ -553,6 +561,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		9E75D0832C848E9900AFA622 /* XCRemoteSwiftPackageReference "CustomBlurEffectView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/perfectdim/CustomBlurEffectView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -560,6 +576,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E75D0632C82FA8700AFA622 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		9E75D0842C848E9900AFA622 /* CustomBlurEffectView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E75D0832C848E9900AFA622 /* XCRemoteSwiftPackageReference "CustomBlurEffectView" */;
+			productName = CustomBlurEffectView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

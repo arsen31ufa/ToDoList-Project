@@ -35,16 +35,19 @@ class MenuViewController:UIViewController{
     
     private lazy var todayForm: TasksBoard = {
         let view = TasksBoard(dataProperty: .today, todoList: self.todoList )
+        view.delegate = self
         return view
     }()
     
     private lazy var tommorowForm: TasksBoard = {
         let view = TasksBoard(dataProperty: .tommorow, todoList: self.todoList )
+        view.delegate = self
         return view
     }()
     
     private lazy var futureForm: TasksBoard = {
         let view = TasksBoard(dataProperty: .future, todoList: self.todoList )
+        view.delegate = self
         return view
     }()
     
@@ -70,13 +73,13 @@ extension MenuViewController: Designable{
         [scrollView].forEach(self.view.addSubview)
         scrollView.addSubview(scrollContentView)
         scrollContentView.addSubview(titleLabel)
-
+        
         scrollContentView.addSubview(todayForm)
         scrollContentView.addSubview(tommorowForm)
         scrollContentView.addSubview(futureForm)
         
         
-
+        
     }
     
     func makeConstrains() {
@@ -114,11 +117,16 @@ extension MenuViewController: Designable{
             make.top.equalTo(tommorowForm.snp.bottom).offset(10)
             make.leading.trailing.equalTo(scrollContentView).inset(20)
             make.height.equalTo(400)
-            // Убедитесь, что нижнее ограничение привязано к последнему элементу
             make.bottom.equalToSuperview().offset(-20)
         }
     }
+}
 
+extension MenuViewController:TasksBoardAddTask_delegate{
+    func addNewTask() {
+        let newTaskView = NewTaskView()
+        self.view.addSubview(newTaskView)
+    }
     
     
 }

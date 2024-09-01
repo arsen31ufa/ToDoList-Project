@@ -1,6 +1,15 @@
 {
-  "originHash" : "dd27728c8848101841bd8d45243ef43144e233aa3767c82656934b73447347b8",
+  "originHash" : "15b4c5aa5a12383a88dab45bbdadad36740dce26f354f24b6150add08ed801a5",
   "pins" : [
+    {
+      "identity" : "customblureffectview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/perfectdim/CustomBlurEffectView",
+      "state" : {
+        "revision" : "a25e92fc90c0df9bdf79177974ba8581ea470905",
+        "version" : "0.0.3"
+      }
+    },
     {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
