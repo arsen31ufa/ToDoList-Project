@@ -20,6 +20,7 @@ class LoadingPresenter {
     
     let viewController: LoadingViewController
     let router:LoadingRouter
+    var isDataLoading = false
     init(viewController: LoadingViewController, router: LoadingRouter) {
         self.viewController = viewController
         self.router = router
@@ -29,20 +30,29 @@ class LoadingPresenter {
 extension LoadingPresenter: LoadingPresenterProtocol{
     
     func goToMenu() {
-        router.goToMenu()
+        guard isDataLoading == true else {fetchData(); return }
+        let todoList = ApiService.shared.todos
+        print(todoList)
+        router.goToMenu(todoList: todoList)
     }
     
     func startProgress() {
+        fetchData()
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.viewController.updateProgress(to: 1)
         }
     }
     
     func fetchData() {
-        DispatchQueue.global(qos: .background).async {
-            ApiService.shared.fetchTodos()
+        ApiService.shared.fetchTodos{ (data, error) in
+            if data != nil {
+                self.isDataLoading = true
+            } else {
+                print("⚠️", error ?? "")
+            }
         }
     }
+    
     
     
 }

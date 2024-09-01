@@ -53,7 +53,7 @@ extension Date {
     // Форматирование даты для отображения в "dd-MM-yyyy"
     func formattedDate() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: self)
     }
 }

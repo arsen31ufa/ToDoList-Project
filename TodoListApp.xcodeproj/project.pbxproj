@@ -8,14 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		9E5F82DB2C82B2EE00285147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */; };
-		9E5F82DF2C82B2EE00285147 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82DE2C82B2EE00285147 /* ViewController.swift */; };
 		9E5F82E22C82B2EE00285147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E12C82B2EE00285147 /* Base */; };
 		9E5F82E42C82B2EF00285147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E32C82B2EF00285147 /* Assets.xcassets */; };
 		9E5F82E72C82B2EF00285147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9E5F82E62C82B2EF00285147 /* Base */; };
 		9E75D0502C82D20300AFA622 /* CoreDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D04F2C82D20300AFA622 /* CoreDataServices.swift */; };
 		9E75D0532C82DCA200AFA622 /* TodoCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0512C82DCA200AFA622 /* TodoCoreData.xcdatamodeld */; };
 		9E75D0572C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0552C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift */; };
-		9E75D05A2C82F50100AFA622 /* LoadingAssebly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */; };
+		9E75D05A2C82F50100AFA622 /* LoadingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0592C82F50100AFA622 /* LoadingAssembly.swift */; };
 		9E75D05C2C82F51A00AFA622 /* LoadingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */; };
 		9E75D05E2C82F52900AFA622 /* LoadingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */; };
 		9E75D0602C82F53700AFA622 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */; };
@@ -27,6 +26,12 @@
 		9E75D06F2C82FCCA00AFA622 /* Inter-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D06A2C82FCCA00AFA622 /* Inter-ExtraLight.otf */; };
 		9E75D0702C82FCCA00AFA622 /* Inter-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E75D06B2C82FCCA00AFA622 /* Inter-Light.otf */; };
 		9E75D0722C82FDE100AFA622 /* Font+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0712C82FDE100AFA622 /* Font+Colors.swift */; };
+		9E75D0752C84109B00AFA622 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0742C84109B00AFA622 /* MenuViewController.swift */; };
+		9E75D0772C8410AE00AFA622 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0762C8410AE00AFA622 /* MenuPresenter.swift */; };
+		9E75D0792C8410C900AFA622 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D0782C8410C900AFA622 /* MenuRouter.swift */; };
+		9E75D07B2C8410DD00AFA622 /* MenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07A2C8410DD00AFA622 /* MenuAssembly.swift */; };
+		9E75D07E2C84132100AFA622 /* TasksBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07D2C84132100AFA622 /* TasksBoard.swift */; };
+		9E75D0802C841E1400AFA622 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75D07F2C841E1400AFA622 /* TaskView.swift */; };
 		9EF2AA392C82BC8E004B991F /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA382C82BC8E004B991F /* Api.swift */; };
 		9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */; };
 		9EF2AA3F2C82C9C8004B991F /* Date+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */; };
@@ -35,7 +40,6 @@
 /* Begin PBXFileReference section */
 		9E5F82D72C82B2EE00285147 /* TodoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E5F82DE2C82B2EE00285147 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E5F82E12C82B2EE00285147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E5F82E32C82B2EF00285147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E5F82E62C82B2EF00285147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -43,7 +47,7 @@
 		9E75D04F2C82D20300AFA622 /* CoreDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServices.swift; sourceTree = "<group>"; };
 		9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoCoreData.xcdatamodel; sourceTree = "<group>"; };
 		9E75D0552C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAssebly.swift; sourceTree = "<group>"; };
+		9E75D0592C82F50100AFA622 /* LoadingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAssembly.swift; sourceTree = "<group>"; };
 		9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingRouter.swift; sourceTree = "<group>"; };
 		9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPresenter.swift; sourceTree = "<group>"; };
 		9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +58,12 @@
 		9E75D06A2C82FCCA00AFA622 /* Inter-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight.otf"; sourceTree = "<group>"; };
 		9E75D06B2C82FCCA00AFA622 /* Inter-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.otf"; sourceTree = "<group>"; };
 		9E75D0712C82FDE100AFA622 /* Font+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Colors.swift"; sourceTree = "<group>"; };
+		9E75D0742C84109B00AFA622 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9E75D0762C8410AE00AFA622 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		9E75D0782C8410C900AFA622 /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
+		9E75D07A2C8410DD00AFA622 /* MenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAssembly.swift; sourceTree = "<group>"; };
+		9E75D07D2C84132100AFA622 /* TasksBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksBoard.swift; sourceTree = "<group>"; };
+		9E75D07F2C841E1400AFA622 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		9EF2AA382C82BC8E004B991F /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		9EF2AA3B2C82BD76004B991F /* TodoModel_json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel_json.swift; sourceTree = "<group>"; };
 		9EF2AA3E2C82C9C8004B991F /* Date+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Time.swift"; sourceTree = "<group>"; };
@@ -94,6 +104,7 @@
 				9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */,
 				9EF2AA3A2C82BD58004B991F /* Models */,
 				9EF2AA362C82BC03004B991F /* Hapler */,
+				9E75D07C2C8412EF00AFA622 /* CustomViews */,
 				9EF2AA342C82BBC3004B991F /* Flow */,
 				9EF2AA332C82BBAD004B991F /* Resourses */,
 			);
@@ -113,7 +124,7 @@
 		9E75D0582C82F4E200AFA622 /* LoadingFlow */ = {
 			isa = PBXGroup;
 			children = (
-				9E75D0592C82F50100AFA622 /* LoadingAssebly.swift */,
+				9E75D0592C82F50100AFA622 /* LoadingAssembly.swift */,
 				9E75D05B2C82F51A00AFA622 /* LoadingRouter.swift */,
 				9E75D05D2C82F52900AFA622 /* LoadingPresenter.swift */,
 				9E75D05F2C82F53700AFA622 /* LoadingViewController.swift */,
@@ -133,6 +144,26 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		9E75D0732C840FB800AFA622 /* MenuFlow */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D07A2C8410DD00AFA622 /* MenuAssembly.swift */,
+				9E75D0782C8410C900AFA622 /* MenuRouter.swift */,
+				9E75D0762C8410AE00AFA622 /* MenuPresenter.swift */,
+				9E75D0742C84109B00AFA622 /* MenuViewController.swift */,
+			);
+			path = MenuFlow;
+			sourceTree = "<group>";
+		};
+		9E75D07C2C8412EF00AFA622 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				9E75D07D2C84132100AFA622 /* TasksBoard.swift */,
+				9E75D07F2C841E1400AFA622 /* TaskView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		9EF2AA332C82BBAD004B991F /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +177,8 @@
 		9EF2AA342C82BBC3004B991F /* Flow */ = {
 			isa = PBXGroup;
 			children = (
+				9E75D0732C840FB800AFA622 /* MenuFlow */,
 				9E75D0582C82F4E200AFA622 /* LoadingFlow */,
-				9E5F82DE2C82B2EE00285147 /* ViewController.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -272,19 +303,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E75D0502C82D20300AFA622 /* CoreDataServices.swift in Sources */,
+				9E75D0792C8410C900AFA622 /* MenuRouter.swift in Sources */,
 				9E75D0622C82F56100AFA622 /* Design+View.swift in Sources */,
 				9EF2AA3F2C82C9C8004B991F /* Date+Time.swift in Sources */,
-				9E75D05A2C82F50100AFA622 /* LoadingAssebly.swift in Sources */,
+				9E75D0752C84109B00AFA622 /* MenuViewController.swift in Sources */,
+				9E75D07B2C8410DD00AFA622 /* MenuAssembly.swift in Sources */,
+				9E75D05A2C82F50100AFA622 /* LoadingAssembly.swift in Sources */,
 				9E75D0532C82DCA200AFA622 /* TodoCoreData.xcdatamodeld in Sources */,
 				9EF2AA392C82BC8E004B991F /* Api.swift in Sources */,
 				9E75D05C2C82F51A00AFA622 /* LoadingRouter.swift in Sources */,
+				9E75D0772C8410AE00AFA622 /* MenuPresenter.swift in Sources */,
+				9E75D07E2C84132100AFA622 /* TasksBoard.swift in Sources */,
 				9E75D0572C82DE1500AFA622 /* TodoEntity+CoreDataProperties.swift in Sources */,
-				9E5F82DF2C82B2EE00285147 /* ViewController.swift in Sources */,
 				9E5F82DB2C82B2EE00285147 /* AppDelegate.swift in Sources */,
 				9E75D05E2C82F52900AFA622 /* LoadingPresenter.swift in Sources */,
 				9EF2AA3C2C82BD76004B991F /* TodoModel_json.swift in Sources */,
 				9E75D0722C82FDE100AFA622 /* Font+Colors.swift in Sources */,
 				9E75D0602C82F53700AFA622 /* LoadingViewController.swift in Sources */,
+				9E75D0802C841E1400AFA622 /* TaskView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 import Foundation
 
 
-class LoadingAssebly{
+class LoadingAssembly{
     func makeLoadingViewController() -> LoadingViewController{
         let vc = LoadingViewController()
         let router = LoadingRouter(viewController: vc)

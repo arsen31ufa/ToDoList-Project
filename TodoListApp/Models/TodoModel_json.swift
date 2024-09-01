@@ -17,7 +17,7 @@ struct ListModel: Codable {
 struct Todo: Codable {
     let id: Int
     let title: String
-    let isCompleted: Bool
+    var isCompleted: Bool
     let userID: Int
     
     var description: String = ""

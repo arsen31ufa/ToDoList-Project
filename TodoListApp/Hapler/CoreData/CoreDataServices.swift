@@ -29,7 +29,7 @@ class CoreDataManager {
         } catch {
             print("Failed to fetch existing todos: \(error)")
         }
-
+        
         // Сохранение новых данных
         todos.forEach { todoData in
             let todoEntity = TodoEntity(context: context)
@@ -40,7 +40,7 @@ class CoreDataManager {
             todoEntity.isCompleted = todoData.isCompleted
             todoEntity.date = todoData.date
         }
-
+        
         do {
             try context.save()
         } catch {
@@ -48,20 +48,13 @@ class CoreDataManager {
         }
     }
     
-    func fetchTasksFromCoreData() -> [Todo] {
+    func fetchTasksFromCoreData() -> [TodoEntity] {
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<TodoEntity> = TodoEntity.fetchRequest()
         
         do {
             let todoEntities = try context.fetch(fetchRequest)
-            return todoEntities.map { todoEntity in
-                return Todo(id: Int(todoEntity.id),
-                            title: todoEntity.title ?? "",
-                            isCompleted: todoEntity.isCompleted,
-                            userID: Int(todoEntity.userID),
-                            description: todoEntity.descriptonText ?? "",
-                            date: todoEntity.date)
-            }
+            return todoEntities // Возвращаем массив TodoEntity без преобразования
         } catch {
             print("Failed to fetch tasks: \(error)")
             return []
