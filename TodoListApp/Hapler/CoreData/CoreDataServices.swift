@@ -62,27 +62,55 @@ class CoreDataManager {
     }
     
     func saveTodoNewTask(
-           title: String?,
-           description: String?,
-           date: Date
+        todoEntity:TodoEntity? = nil,
+        title: String?,
+        description: String?,
+        date: Date
     ) -> [TodoEntity] {
-           let context = persistentContainer.viewContext
-           
-           let todoEntity = TodoEntity(context: context)
-           todoEntity.id = Int16(0)
-           todoEntity.userID = Int16(99)
-           todoEntity.title = title
-           todoEntity.descriptonText = description
-           todoEntity.date = date
-           todoEntity.isCompleted = false
-           
-           do {
-               try context.save()
-               print("Todo saved successfully")
-           } catch {
-               print("Failed to save todo: \(error)")
-           }
-        let newTodoList = CoreDataManager.shared.fetchTasksFromCoreData()
-        return newTodoList
-       }
+        let context = persistentContainer.viewContext
+        
+        let todoEntityToSave: TodoEntity
+        
+        if let existingTodo = todoEntity {
+            // Если задача уже существует, обновляем её
+            todoEntityToSave = existingTodo
+            print("Обновили задачу")
+        } else {
+            // Если задача новая, создаём новый объект
+            todoEntityToSave = TodoEntity(context: context)
+            todoEntityToSave.id = Int16(0)
+            todoEntityToSave.userID = Int16(99)
+            todoEntityToSave.isCompleted = false
+            print("Создали задачу")
+
+        }
+        todoEntityToSave.title = title
+        todoEntityToSave.descriptonText = description
+        todoEntityToSave.date = date
+        
+        do {
+            try context.save()
+            print("Todo saved or updated successfully")
+        } catch {
+            print("Failed to save or update todo: \(error)")
+        }
+        
+        let updatedTodoList = CoreDataManager.shared.fetchTasksFromCoreData()
+        return updatedTodoList
+    }
+    
+    func deleteTodoTask(todo: TodoEntity) -> [TodoEntity] {
+        let context = persistentContainer.viewContext
+        context.delete(todo)
+        
+        do {
+            try context.save()
+            print("Todo deleted successfully")
+        } catch {
+            print("Failed to delete todo: \(error)")
+        }
+        let updatedTodoList = CoreDataManager.shared.fetchTasksFromCoreData()
+        return updatedTodoList
+    }
+    
 }

@@ -15,6 +15,7 @@ enum taskFormType{
 
 protocol TasksBoardAddTask_delegate{
     func addNewTask()
+    func isEditingTask(task: TodoEntity)
 }
 
 class TasksBoard: UIView{
@@ -178,15 +179,16 @@ extension TasksBoard {
         case .tommorow:
             dayLabel.text = "Завтра".uppercased()
             dayLabel.textColor = .gray
-            
+            addButton.isHidden = true
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: tomorrow)
             }
             
         case .future:
-            dayLabel.text = "Потом".uppercased()
+            dayLabel.text = "На будущее".uppercased()
             dayLabel.textColor = .gray
-            
+            addButton.isHidden = true
+
             todoListFilter = todoList.filter { item in
                 return item.date > tomorrow || item.date < today
             }
@@ -203,8 +205,17 @@ extension TasksBoard {
         for task in todoList {
             let view = TaskView()
             view.configurate(todo: task)
+            view.delegate = self
             taskVStack.addArrangedSubview(view)
         }
     }
+    
+}
+
+extension TasksBoard: TaskViewDelegate{
+    func editingLondTapp(todo: TodoEntity) {
+        delegate?.isEditingTask(task: todo)
+    }
+    
     
 }

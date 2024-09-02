@@ -81,7 +81,7 @@ class NewTaskView: UIView {
     
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont(name: CustomFonts.interRegula, size: 15)
+        textField.font = UIFont(name: CustomFonts.interMedium, size: 15)
         textField.textColor = .black
         textField.placeholder = "Рассмотреть заявки"
         textField.delegate = self
@@ -100,7 +100,7 @@ class NewTaskView: UIView {
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         
-        textView.font = UIFont(name: CustomFonts.interMedium, size: 23)
+        textView.font = UIFont(name: CustomFonts.interRegula, size: 15)
         textView.textColor = .black
         textView.text = ""
         
@@ -144,26 +144,26 @@ class NewTaskView: UIView {
         label.textAlignment = .left
         return label
     }()
-    
     private lazy var timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .compact
         timePicker.tintColor = Colors.blackPurple
         timePicker.date = Date()
+
         let now = Date()
         let calendar = Calendar.current
-        let currentHour = calendar.component(.hour, from: now)
-        let currentMinute = calendar.component(.minute, from: now)
-        
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
-        components.hour = currentHour
-        components.minute = currentMinute
-        
         timePicker.minimumDate = calendar.date(from: components)
         
+        // Добавляем таргет к datePicker
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+
         return timePicker
     }()
+    
+  
+   
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -172,12 +172,10 @@ class NewTaskView: UIView {
         button.titleLabel?.textAlignment = .center
         button.backgroundColor = Colors.blackPurple
         button.layer.cornerRadius = 15
-        
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1, height: 4)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 4
-        
         button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         return button
     }()
@@ -187,20 +185,34 @@ class NewTaskView: UIView {
         button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = UIFont(name: CustomFonts.interMedium, size: 15)
         button.titleLabel?.textAlignment = .center
-        button.backgroundColor = .gray
+        button.backgroundColor = .black
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(dissmis), for: .touchUpInside)
+        
+        if todoTask != nil {
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+            button.addGestureRecognizer(longPressGesture)
+        }
         return button
     }()
-    
+   
     var delegate: NewTaskViewDelegate?
+    let todoTask: TodoEntity?
     
-    override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: DesignConstans.screenWidth, height: DesignConstans.screenHeight))
+    private var longPressTimer: Timer?
+    private var longPressDuration: TimeInterval = 1.0
+    
+    
+    init(frame: CGRect = CGRect(x: 0, y: 0, width: DesignConstans.screenWidth, height: DesignConstans.screenHeight), todoTask: TodoEntity? = nil) {
+        self.todoTask = todoTask
+        super.init(frame: frame)
         setUp()
         addSubViews()
         makeConstrains()
+        editingConfiguration(task: todoTask)
+        
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -209,25 +221,63 @@ class NewTaskView: UIView {
 
 extension NewTaskView {
     
+  
+  
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            // Начало долгого нажатия: запускаем анимацию изменения цвета и устанавливаем заголовок "Удаление"
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.cancelButton.backgroundColor = UIColor.red
+                self.cancelButton.setTitle("Удаление", for: .normal)
+            })
+            
+            // Запускаем таймер на 3 секунды
+            longPressTimer = Timer.scheduledTimer(timeInterval: longPressDuration, target: self, selector: #selector(performDeleteAction), userInfo: nil, repeats: false)
+
+        case .ended, .cancelled, .failed:
+            // Удержание завершено раньше или жест отменен: останавливаем таймер, возвращаем цвет и заголовок обратно
+            longPressTimer?.invalidate()
+            longPressTimer = nil
+
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.cancelButton.backgroundColor = .black
+                self.cancelButton.setTitle("Отмена", for: .normal)
+            })
+
+        default:
+            break
+        }
+    }
+
+    @objc private func performDeleteAction() {
+        // Выполняем удаление, если кнопка удерживалась ровно 3 секунды
+        print("Удаление выполнено после удержания кнопки 3 секунды.")
+        guard let task = self.todoTask else { return }
+
+        let newTodoList = CoreDataManager.shared.deleteTodoTask(todo: task)
+        self.delegate?.saveNewTask(newTodoList: newTodoList)
+        self.dissmis()
+    }
+    
     @objc func saveAction() {
         let title = nameTextField.text
         let description = descriptionTextView.text
-        
+        // дата и время на форме
         let selectedDate = datePicker.date
         let selectedTime = timePicker.date
-        
+        //создаем колендаь
         let calendar = Calendar.current
-        
         let componentsDate = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         let componentsTime = calendar.dateComponents([.hour, .minute], from: selectedTime)
-        
+        //формируем полноценную дату
         var combinedComponents = componentsDate
         combinedComponents.hour = componentsTime.hour
         combinedComponents.minute = componentsTime.minute
-        
         let combinedDate = calendar.date(from: combinedComponents) ?? Date()
         
         let newTodoList =  CoreDataManager.shared.saveTodoNewTask(
+            todoEntity: self.todoTask,
             title: title,
             description: description,
             date: combinedDate
@@ -241,11 +291,24 @@ extension NewTaskView {
     @objc func dissmis(){
         self.removeFromSuperview()
     }
+    
+    @objc private func dateChanged(_ sender: UIDatePicker) {
+        let selectedDate = sender.date
+        let today = Date()
+
+        let calendar = Calendar.current
+        if calendar.isDate(selectedDate, inSameDayAs: today) {
+            // Если выбранная дата совпадает с сегодняшней, минимальное время - текущее время
+            timePicker.minimumDate = today
+        } else {
+            // Если дата в будущем, убрать ограничения
+            timePicker.minimumDate = nil
+        }
+    }
 }
 
 extension NewTaskView: Designable {
     func setUp() {
-        self.isHidden = false
     }
     
     func addSubViews() {
@@ -352,6 +415,26 @@ extension NewTaskView: Designable {
             make.centerX.equalTo(conteynirView)
             make.height.equalTo(30)
             make.width.equalTo(conteynirView.snp.width).multipliedBy(0.5)
+        }
+    }
+    
+    func editingConfiguration(task: TodoEntity?) {
+        guard let task = task else { return }
+        // Устанавливаем текст для заголовка и полей
+        titleLabel.text = "Редактирование"
+        nameTextField.text = task.title
+        descriptionTextView.text = task.descriptonText
+        
+        // Разделение полной даты на дату и время
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: task.date)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: task.date)
+        
+        if let date = calendar.date(from: dateComponents) {
+            datePicker.date = date
+        }
+        if let time = calendar.date(from: timeComponents) {
+            timePicker.date = time
         }
     }
 }

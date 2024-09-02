@@ -8,12 +8,18 @@
 import Foundation
 import UIKit
 
+protocol TaskViewDelegate{
+    func editingLondTapp(todo:TodoEntity)
+}
+ 
 class TaskView: UIView{
     
     private lazy var conteynir: UIView = {
         let view = UIView()
         return view
     }()
+    
+
     
     private lazy var titleTask: UILabel = {
         let label = UILabel()
@@ -50,11 +56,9 @@ class TaskView: UIView{
         textView.font = UIFont(name: CustomFonts.interMedium, size: 15)
         textView.textColor = .gray
         textView.text = ""
-    
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
         textView.isEditable = false
-        
         return textView
     }()
     
@@ -65,23 +69,21 @@ class TaskView: UIView{
         return button
     }()
     
-    @objc func tappCheackMark() {
-        guard let task = todoTask else { return }
-        task.isCompleted.toggle()
-        
-        let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
-        checkmarkButton.setImage(UIImage(named: imageName), for: .normal)
-        
-        do {
-            try task.managedObjectContext?.save()
-            print(task)
-        } catch {
-            print("Failed to save task completion status: \(error)")
-        }
+    private lazy var goToEditButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func tapped(){
+        print("tapped")
+        guard let todoTask = self.todoTask else {return}
+        delegate?.editingLondTapp(todo: todoTask)
     }
-    
-    
+       
     var todoTask: TodoEntity?
+    var delegate: TaskViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         addSubViews()
@@ -92,16 +94,34 @@ class TaskView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func tappCheackMark() {
+        guard let task = todoTask else { return }
+        task.isCompleted.toggle()
+        update()
+        do {
+            try task.managedObjectContext?.save()
+            print(task)
+        } catch {
+            print("Failed to save task completion status: \(error)")
+        }
+    }
+    
     func configurate(todo: TodoEntity){
         self.todoTask = todo
         dateLabel.text = "\(todo.date.formattedDate())"
         timeLabel.text = "\(todo.date.formattedTime())"
-        titleTask.text = todo.title
-        descriptionTextView.text = todo.descriptonText
-        todo.isCompleted ? checkmarkButton.setImage(UIImage(named: "yesCompilted"), for: .normal) :
-        checkmarkButton.setImage(UIImage(named: "noCoplited"), for: .normal)
+        update()
     }
     
+    func update() {
+        guard let task = todoTask else { return }
+        let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
+        checkmarkButton.setImage(UIImage(named: imageName), for: .normal)
+        
+        let descriptionText = task.descriptonText?.isEmpty == true ? "Нет заметки" : task.descriptonText!
+        titleTask.setStrikethrough(task.title ?? "", isCompleted: task.isCompleted)
+        descriptionTextView.setStrikethrough(descriptionText, isCompleted: task.isCompleted)
+    }
 }
 
 extension TaskView: Designable{
@@ -111,7 +131,8 @@ extension TaskView: Designable{
          dateLabel,
          checkmarkButton,
          titleTask,
-         descriptionTextView].forEach(self.addSubview)
+         descriptionTextView,
+         goToEditButton].forEach(self.addSubview)
     }
     
     func makeConstrains() {
@@ -148,9 +169,13 @@ extension TaskView: Designable{
         
         descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTask.snp.bottom)
-            make.leading.equalTo(timeLabel)
+            make.leading.equalTo(titleTask)
             make.trailing.equalTo(conteynir).inset(10)
             make.bottom.equalTo(conteynir.snp.bottom).offset(-5)
+        }
+        
+        goToEditButton.snp.makeConstraints { make in
+            make.edges.equalTo(titleTask).inset(10)
         }
        
     }

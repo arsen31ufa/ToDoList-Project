@@ -16,7 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let vc = LoadingAssembly().makeLoadingViewController()
         self.window?.rootViewController = UINavigationController(rootViewController:vc)
         self.window?.makeKeyAndVisible()
+        setupAppearance()
         return true
+    }
+    
+    func setupAppearance() {
+        let appearance = UINavigationBarAppearance()
+           appearance.configureWithTransparentBackground()
+           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+           UINavigationBar.appearance().standardAppearance = appearance
+           UINavigationBar.appearance().compactAppearance = appearance
     }
 
 

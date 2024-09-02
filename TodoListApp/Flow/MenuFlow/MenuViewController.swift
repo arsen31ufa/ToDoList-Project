@@ -90,7 +90,7 @@ extension MenuViewController: Designable{
     
     func makeConstrains() {
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalToSuperview()
             make.trailing.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -102,7 +102,7 @@ extension MenuViewController: Designable{
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(scrollContentView).offset(20)
+            make.top.equalTo(scrollContentView).offset(10)
             make.centerX.leading.trailing.equalTo(scrollContentView)
             make.height.equalTo(30)
         }
@@ -129,6 +129,12 @@ extension MenuViewController: Designable{
 }
 
 extension MenuViewController:TasksBoardAddTask_delegate{
+    func isEditingTask(task: TodoEntity) {
+        let newTaskView = NewTaskView(todoTask: task)
+        newTaskView.delegate = self
+        self.view.addSubview(newTaskView)
+    }
+    
     func addNewTask() {
         let newTaskView = NewTaskView()
         newTaskView.delegate = self
@@ -141,6 +147,5 @@ extension MenuViewController:NewTaskViewDelegate{
         self.todoList = newTodoList
     }
     
-    
-    
 }
+
