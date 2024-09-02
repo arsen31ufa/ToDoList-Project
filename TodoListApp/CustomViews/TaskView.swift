@@ -21,16 +21,41 @@ class TaskView: UIView{
         label.font = UIFont(name: CustomFonts.interRegula, size: 20)
         label.textColor = .black
         label.textAlignment = .left
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "333"
-        label.font = UIFont(name: CustomFonts.interLight, size: 15)
+        label.font = UIFont(name: CustomFonts.interLight, size: 12)
         label.textColor = .black
         label.textAlignment = .left
         return label
+    }()
+    
+    private lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "333"
+        label.font = UIFont(name: CustomFonts.interLight, size: 15)
+        label.textColor = Colors.blackPurple
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont(name: CustomFonts.interMedium, size: 15)
+        textView.textColor = .gray
+        textView.text = ""
+    
+        textView.isScrollEnabled = true
+        textView.backgroundColor = .clear
+        textView.isEditable = false
+        
+        return textView
     }()
     
     private lazy var checkmarkButton: UIButton = {
@@ -41,7 +66,7 @@ class TaskView: UIView{
     }()
     
     @objc func tappCheackMark() {
-        guard var task = todoTask else { return }
+        guard let task = todoTask else { return }
         task.isCompleted.toggle()
         
         let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
@@ -69,8 +94,10 @@ class TaskView: UIView{
     
     func configurate(todo: TodoEntity){
         self.todoTask = todo
-        titleTask.text = todo.title
         dateLabel.text = "\(todo.date.formattedDate())"
+        timeLabel.text = "\(todo.date.formattedTime())"
+        titleTask.text = todo.title
+        descriptionTextView.text = todo.descriptonText
         todo.isCompleted ? checkmarkButton.setImage(UIImage(named: "yesCompilted"), for: .normal) :
         checkmarkButton.setImage(UIImage(named: "noCoplited"), for: .normal)
     }
@@ -80,34 +107,52 @@ class TaskView: UIView{
 extension TaskView: Designable{
     func addSubViews() {
         [conteynir,
+         timeLabel,
+         dateLabel,
          checkmarkButton,
          titleTask,
-         dateLabel].forEach(self.addSubview)
+         descriptionTextView].forEach(self.addSubview)
     }
     
     func makeConstrains() {
         conteynir.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(80)
+            make.height.equalTo(50)
         }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.top.equalTo(conteynir).offset(15)
+            make.leading.equalTo(checkmarkButton)
+            make.height.equalTo(20)
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(titleTask)
+            make.centerY.equalTo(timeLabel)
+        }
+        
         checkmarkButton.snp.makeConstraints { make in
-            make.top.leading.equalTo(conteynir).offset(20)
+            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+            make.leading.equalTo(conteynir).offset(20)
+            make.centerY.equalTo(conteynir)
             make.height.equalTo(15)
             make.width.equalTo(25)
-            make.centerY.equalTo(conteynir)
         }
         
         titleTask.snp.makeConstraints { make in
             make.leading.equalTo(checkmarkButton.snp.trailing).offset(20)
-            make.height.equalTo(30)
-            make.width.equalTo(100)
+            make.trailing.equalTo(conteynir).inset(10)
             make.centerY.equalTo(checkmarkButton)
+            make.height.equalTo(35)
         }
-        dateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleTask.snp.trailing).offset(20)
-            make.trailing.equalTo(conteynir)
-            make.centerY.height.equalTo(titleTask)
+        
+        descriptionTextView.snp.makeConstraints { make in
+            make.top.equalTo(titleTask.snp.bottom)
+            make.leading.equalTo(timeLabel)
+            make.trailing.equalTo(conteynir).inset(10)
+            make.bottom.equalTo(conteynir.snp.bottom).offset(-5)
         }
+       
     }
     
     

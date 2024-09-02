@@ -159,7 +159,7 @@ extension TasksBoard: Designable{
 
 extension TasksBoard {
     
-    private func configurate(type: taskFormType, todoList: [TodoEntity]) {
+     func configurate(type: taskFormType, todoList: [TodoEntity]) {
         var todoListFilter = [TodoEntity]()
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())

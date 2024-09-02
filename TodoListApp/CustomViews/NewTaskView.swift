@@ -10,6 +10,11 @@ import UIKit
 import SnapKit
 import CustomBlurEffectView
 
+protocol NewTaskViewDelegate{
+    func saveNewTask(newTodoList: [TodoEntity])
+}
+
+
 class NewTaskView: UIView {
     
     private lazy var blurView: UIView = {
@@ -38,7 +43,7 @@ class NewTaskView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Новая задача"
-        label.font = UIFont(name: CustomFonts.interBold, size: 15)
+        label.font = UIFont(name: CustomFonts.interBold, size: 17)
         label.textAlignment = .center
         label.textColor = .black
         return label
@@ -65,36 +70,53 @@ class NewTaskView: UIView {
         return label
     }()
     
+    private lazy var nameConteynir: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.cornerRadius = 8
+        return view
+    }()
+    
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont(name: CustomFonts.interBold, size: 23)
+        textField.font = UIFont(name: CustomFonts.interRegula, size: 15)
         textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "Рассмотреть заявки",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]
-        )
+        textField.placeholder = "Рассмотреть заявки"
+        textField.delegate = self
         return textField
     }()
     
     private lazy var descriptionLabel : UILabel = {
         let label = UILabel()
         label.text = "Добавить заметку"
-        label.font = UIFont(name: CustomFonts.interBold, size: 20)
+        label.font = UIFont(name: CustomFonts.interBold, size: 17)
         label.textColor = .gray
         label.textAlignment = .left
         return label
     }()
     
-    private lazy var descriptionTextField: UITextField = {
-        let textField = UITextField()
-        textField.font = UIFont(name: CustomFonts.interBold, size: 23)
-        textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "Взять на работу Никиту Зиганшина, \nон ведь очень сильно хочет к вам на работу",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]
-        )
-        return textField
+    private lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        
+        textView.font = UIFont(name: CustomFonts.interMedium, size: 23)
+        textView.textColor = .black
+        textView.text = ""
+        
+        textView.textContainerInset = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.gray.cgColor
+        textView.layer.cornerRadius = 8
+        
+        textView.isScrollEnabled = true
+        textView.backgroundColor = .white
+        textView.isEditable = true
+        
+        textView.delegate = self
+        return textView
     }()
+    
     
     private lazy var dataLabel : UILabel = {
         let label = UILabel()
@@ -110,6 +132,7 @@ class NewTaskView: UIView {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.tintColor = Colors.blackPurple
+        datePicker.minimumDate = Date()
         return datePicker
     }()
     
@@ -127,8 +150,50 @@ class NewTaskView: UIView {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .compact
         timePicker.tintColor = Colors.blackPurple
+        timePicker.date = Date()
+        let now = Date()
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: now)
+        let currentMinute = calendar.component(.minute, from: now)
+        
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
+        components.hour = currentHour
+        components.minute = currentMinute
+        
+        timePicker.minimumDate = calendar.date(from: components)
+        
         return timePicker
     }()
+    
+    private lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Сохранить", for: .normal)
+        button.titleLabel?.font = UIFont(name: CustomFonts.interMedium, size: 17)
+        button.titleLabel?.textAlignment = .center
+        button.backgroundColor = Colors.blackPurple
+        button.layer.cornerRadius = 15
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 1, height: 4)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 4
+        
+        button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Отмена", for: .normal)
+        button.titleLabel?.font = UIFont(name: CustomFonts.interMedium, size: 15)
+        button.titleLabel?.textAlignment = .center
+        button.backgroundColor = .gray
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(dissmis), for: .touchUpInside)
+        return button
+    }()
+    
+    var delegate: NewTaskViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: DesignConstans.screenWidth, height: DesignConstans.screenHeight))
@@ -144,11 +209,36 @@ class NewTaskView: UIView {
 
 extension NewTaskView {
     
-    func showNewTaskView(){
-        self.isHidden = false
+    @objc func saveAction() {
+        let title = nameTextField.text
+        let description = descriptionTextView.text
+        
+        let selectedDate = datePicker.date
+        let selectedTime = timePicker.date
+        
+        let calendar = Calendar.current
+        
+        let componentsDate = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+        let componentsTime = calendar.dateComponents([.hour, .minute], from: selectedTime)
+        
+        var combinedComponents = componentsDate
+        combinedComponents.hour = componentsTime.hour
+        combinedComponents.minute = componentsTime.minute
+        
+        let combinedDate = calendar.date(from: combinedComponents) ?? Date()
+        
+        let newTodoList =  CoreDataManager.shared.saveTodoNewTask(
+            title: title,
+            description: description,
+            date: combinedDate
+        )
+        
+        delegate?.saveNewTask(newTodoList: newTodoList)
+        dissmis()
     }
     
-    func dissmis(){
+    
+    @objc func dissmis(){
         self.removeFromSuperview()
     }
 }
@@ -164,13 +254,16 @@ extension NewTaskView: Designable {
          titleConteynir,
          titleLabel,
          nameLabel,
+         nameConteynir,
          nameTextField,
          descriptionLabel,
-         descriptionTextField,
+         descriptionTextView,
          dataLabel,
          datePicker,
          timeLabel,
-         timePicker].forEach { self.addSubview($0) }
+         timePicker,
+         saveButton,
+         cancelButton].forEach { self.addSubview($0) }
     }
     
     func makeConstrains() {
@@ -180,9 +273,9 @@ extension NewTaskView: Designable {
         
         titleConteynir.snp.makeConstraints { make in
             make.bottom.equalTo(conteynirView.snp.top).offset(-20)
-            make.height.equalTo(80)
-            make.width.equalToSuperview().multipliedBy(0.4) // Ширина 40% от ширины родительского view
-            make.centerX.equalToSuperview() // Центрируем по горизонтали
+            make.height.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.centerX.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -191,8 +284,8 @@ extension NewTaskView: Designable {
         
         conteynirView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7) // Ширина 70% от ширины родительского view
-            make.height.equalToSuperview().multipliedBy(0.5) // Высота 50% от высоты родительского view
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.5)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -200,11 +293,15 @@ extension NewTaskView: Designable {
             make.height.equalTo(30)
         }
         
-        nameTextField.snp.makeConstraints { make in
+        
+        nameConteynir.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
             make.leading.equalTo(nameLabel)
             make.trailing.equalTo(conteynirView).offset(-20)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
+        }
+        nameTextField.snp.makeConstraints { make in
+            make.edges.equalTo(nameConteynir).inset(10)
         }
         
         descriptionLabel.snp.makeConstraints { make in
@@ -214,15 +311,15 @@ extension NewTaskView: Designable {
             make.height.equalTo(30)
         }
         
-        descriptionTextField.snp.makeConstraints { make in
+        descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
             make.leading.equalTo(nameLabel)
-            make.trailing.equalTo(conteynirView).offset(-20)
-            make.height.equalTo(30)
+            make.trailing.equalTo(conteynirView).inset(20)
+            make.bottom.equalTo(dataLabel.snp.top).offset(-10)
         }
         
         dataLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionTextField.snp.bottom).offset(20)
+            make.bottom.equalTo(timeLabel.snp.top).offset(-10)
             make.leading.equalTo(nameLabel)
             make.height.equalTo(30)
         }
@@ -233,7 +330,7 @@ extension NewTaskView: Designable {
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(dataLabel.snp.bottom).offset(20)
+            make.bottom.equalTo(conteynirView).inset(20)
             make.leading.equalTo(nameLabel)
             make.height.equalTo(30)
         }
@@ -242,9 +339,62 @@ extension NewTaskView: Designable {
             make.centerY.equalTo(timeLabel)
             make.trailing.equalTo(conteynirView).inset(20)
         }
+        
+        saveButton.snp.makeConstraints { make in
+            make.top.equalTo(conteynirView.snp.bottom).offset(30)
+            make.centerX.equalTo(conteynirView)
+            make.height.equalTo(35)
+            make.width.equalTo(conteynirView.snp.width).multipliedBy(0.8)
+        }
+        
+        cancelButton.snp.makeConstraints { make in
+            make.top.equalTo(saveButton.snp.bottom).offset(15)
+            make.centerX.equalTo(conteynirView)
+            make.height.equalTo(30)
+            make.width.equalTo(conteynirView.snp.width).multipliedBy(0.5)
+        }
     }
 }
 
+
+
+// MARK: - UITextFieldDelegate
+extension NewTaskView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Скрыть клавиатуру
+        return true
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension NewTaskView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Взять на работу Никиту Зиганшина, он ведь очень сильно хочет к вам на работу" {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Взять на работу Никиту Зиганшина, он ведь очень сильно хочет к вам на работу"
+            textView.textColor = .gray
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            let currentText = textView.text as NSString
+            let updatedText = currentText.replacingCharacters(in: range, with: text)
+            
+            if updatedText.hasSuffix("\n\n") {
+                textView.resignFirstResponder()
+                return false
+            }
+        }
+        return true
+    }
+}
 
 #Preview( body: {
     NewTaskView()

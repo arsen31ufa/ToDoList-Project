@@ -10,10 +10,12 @@ import Foundation
 
 class MenuPresenter{
     let viewcontroller: MenuViewController
-    let todoList: [TodoEntity]
+    var todoList: [TodoEntity]
     
     init(viewcontroller: MenuViewController, todoList: [TodoEntity]) {
         self.viewcontroller = viewcontroller
         self.todoList = todoList
     }
+    
+    
 }

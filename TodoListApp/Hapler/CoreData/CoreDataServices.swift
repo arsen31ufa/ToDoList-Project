@@ -60,4 +60,29 @@ class CoreDataManager {
             return []
         }
     }
+    
+    func saveTodoNewTask(
+           title: String?,
+           description: String?,
+           date: Date
+    ) -> [TodoEntity] {
+           let context = persistentContainer.viewContext
+           
+           let todoEntity = TodoEntity(context: context)
+           todoEntity.id = Int16(0)
+           todoEntity.userID = Int16(99)
+           todoEntity.title = title
+           todoEntity.descriptonText = description
+           todoEntity.date = date
+           todoEntity.isCompleted = false
+           
+           do {
+               try context.save()
+               print("Todo saved successfully")
+           } catch {
+               print("Failed to save todo: \(error)")
+           }
+        let newTodoList = CoreDataManager.shared.fetchTasksFromCoreData()
+        return newTodoList
+       }
 }

@@ -52,7 +52,13 @@ class MenuViewController:UIViewController{
     }()
     
     var presenter: MenuPresenter!
-    var todoList = [TodoEntity]()
+    var todoList = [TodoEntity]() {
+        didSet{
+            todayForm.configurate(type: .today, todoList: todoList)
+            tommorowForm.configurate(type: .tommorow, todoList: todoList)
+            futureForm.configurate(type: .future, todoList: todoList)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,8 +131,16 @@ extension MenuViewController: Designable{
 extension MenuViewController:TasksBoardAddTask_delegate{
     func addNewTask() {
         let newTaskView = NewTaskView()
+        newTaskView.delegate = self
         self.view.addSubview(newTaskView)
     }
+}
+
+extension MenuViewController:NewTaskViewDelegate{
+    func saveNewTask(newTodoList: [TodoEntity]) {
+        self.todoList = newTodoList
+    }
+    
     
     
 }
