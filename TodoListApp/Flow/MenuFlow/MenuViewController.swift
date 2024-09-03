@@ -11,6 +11,13 @@ import SnapKit
 
 class MenuViewController:UIViewController{
     
+    private lazy var settingsButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "settingsButton"), for: .normal)
+        button.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Todo List".uppercased()
@@ -24,6 +31,7 @@ class MenuViewController:UIViewController{
         scrollView.bounces = false
         scrollView.clipsToBounds = true
         scrollView.layer.cornerRadius = 12
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
@@ -51,12 +59,14 @@ class MenuViewController:UIViewController{
         return view
     }()
     
+    @objc func goToSettings(){
+        presenter.goToSettings()
+    }
+    
     var presenter: MenuPresenter!
     var todoList = [TodoEntity]() {
         didSet{
-            todayForm.configurate(type: .today, todoList: todoList)
-            tommorowForm.configurate(type: .tommorow, todoList: todoList)
-            futureForm.configurate(type: .future, todoList: todoList)
+            UpdateView(todoList: self.todoList)
         }
     }
     
@@ -79,13 +89,10 @@ extension MenuViewController: Designable{
         [scrollView].forEach(self.view.addSubview)
         scrollView.addSubview(scrollContentView)
         scrollContentView.addSubview(titleLabel)
-        
+        scrollContentView.addSubview(settingsButton)
         scrollContentView.addSubview(todayForm)
         scrollContentView.addSubview(tommorowForm)
         scrollContentView.addSubview(futureForm)
-        
-        
-        
     }
     
     func makeConstrains() {
@@ -102,13 +109,19 @@ extension MenuViewController: Designable{
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(scrollContentView).offset(10)
+            make.top.equalTo(scrollContentView)
             make.centerX.leading.trailing.equalTo(scrollContentView)
             make.height.equalTo(30)
         }
         
+        settingsButton.snp.makeConstraints { make in
+            make.leading.equalTo(scrollContentView).offset(20)
+            make.centerY.equalTo(titleLabel)
+            make.height.width.equalTo(30)
+        }
+        
         todayForm.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.leading.trailing.equalTo(scrollContentView).inset(20)
             make.height.equalTo(300)
         }
@@ -148,4 +161,36 @@ extension MenuViewController:NewTaskViewDelegate{
     }
     
 }
-
+extension MenuViewController {
+    
+    
+    func UpdateView(todoList: [TodoEntity]) {
+        todayForm.configurate(type: .today, todoList: todoList)
+        let todayTasksCount = todayForm.returnVStackViewCount()
+        
+        tommorowForm.configurate(type: .tommorow, todoList: todoList)
+        let tommorowTasksCount = tommorowForm.returnVStackViewCount()
+        
+        futureForm.configurate(type: .future, todoList: todoList)
+        let futureTasksCount = futureForm.returnVStackViewCount()
+        
+        // Высчитываем значения высоты для каждой формы
+        let todayHeight = min(max(CGFloat(todayTasksCount * 100), 80), 350)
+        let tommorowHeight = min(max(CGFloat(tommorowTasksCount * 100), 80), 350)
+        let futureHeight = min(max(CGFloat(futureTasksCount * 100), 80), 550)
+        
+        todayForm.snp.updateConstraints { make in
+            make.height.equalTo(todayHeight)
+        }
+        
+        tommorowForm.snp.updateConstraints { make in
+            make.height.equalTo(tommorowHeight)
+        }
+        
+        futureForm.snp.updateConstraints { make in
+            make.height.equalTo(futureHeight)
+        }
+        
+        view.layoutIfNeeded()
+    }
+}

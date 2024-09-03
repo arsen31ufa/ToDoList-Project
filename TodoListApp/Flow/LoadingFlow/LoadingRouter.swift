@@ -16,6 +16,7 @@ class LoadingRouter{
     }
     func goToMenu(todoList:[TodoEntity]){
         let controller = UINavigationController(rootViewController:MenuAssembly().makeMenuViewController(todoList: todoList))
+        controller.navigationBar.isHidden = true
         controller.modalPresentationStyle = .fullScreen
         self.viewController.present(controller, animated: true)
     }

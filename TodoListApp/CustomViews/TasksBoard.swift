@@ -193,7 +193,9 @@ extension TasksBoard {
                 return item.date > tomorrow || item.date < today
             }
         }
-        
+        //сортируем по дате
+        todoListFilter.sort { $0.date < $1.date }
+
         setUpVstack(with: todoListFilter)
     }
     
@@ -206,10 +208,18 @@ extension TasksBoard {
             let view = TaskView()
             view.configurate(todo: task)
             view.delegate = self
+            if task.date <  Date(){
+                view.warningUpdate()
+            }
+
             taskVStack.addArrangedSubview(view)
         }
     }
     
+    
+    func returnVStackViewCount()-> Int{
+       return taskVStack.subviews.count
+    }
 }
 
 extension TasksBoard: TaskViewDelegate{

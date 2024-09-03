@@ -251,8 +251,7 @@ extension NewTaskView {
     }
 
     @objc private func performDeleteAction() {
-        // Выполняем удаление, если кнопка удерживалась ровно 3 секунды
-        print("Удаление выполнено после удержания кнопки 3 секунды.")
+        print("Удаление  после удержания 3 секунды.")
         guard let task = self.todoTask else { return }
 
         let newTodoList = CoreDataManager.shared.deleteTodoTask(todo: task)
@@ -261,32 +260,44 @@ extension NewTaskView {
     }
     
     @objc func saveAction() {
-        let title = nameTextField.text
+        // Проверка на наличие текста в поле названия
+        guard let title = nameTextField.text, !title.isEmpty else {
+            // Если поле пустое, красим рамку в красный
+            nameConteynir.layer.borderColor = UIColor.red.cgColor
+            nameConteynir.layer.borderWidth = 2.0
+            nameConteynir.shakeView()
+            return
+        }
+        
+        nameTextField.layer.borderColor = UIColor.gray.cgColor
+        nameTextField.layer.borderWidth = 1.0
+        
         let description = descriptionTextView.text
-        // дата и время на форме
+        
         let selectedDate = datePicker.date
         let selectedTime = timePicker.date
-        //создаем колендаь
+        
         let calendar = Calendar.current
+        
         let componentsDate = calendar.dateComponents([.year, .month, .day], from: selectedDate)
         let componentsTime = calendar.dateComponents([.hour, .minute], from: selectedTime)
-        //формируем полноценную дату
+        
         var combinedComponents = componentsDate
         combinedComponents.hour = componentsTime.hour
         combinedComponents.minute = componentsTime.minute
         let combinedDate = calendar.date(from: combinedComponents) ?? Date()
         
-        let newTodoList =  CoreDataManager.shared.saveTodoNewTask(
+        let newTodoList = CoreDataManager.shared.saveTodoNewTask(
             todoEntity: self.todoTask,
             title: title,
             description: description,
             date: combinedDate
         )
-        
         delegate?.saveNewTask(newTodoList: newTodoList)
         dissmis()
     }
-    
+
+ 
     
     @objc func dissmis(){
         self.removeFromSuperview()
@@ -298,7 +309,6 @@ extension NewTaskView {
 
         let calendar = Calendar.current
         if calendar.isDate(selectedDate, inSameDayAs: today) {
-            // Если выбранная дата совпадает с сегодняшней, минимальное время - текущее время
             timePicker.minimumDate = today
         } else {
             // Если дата в будущем, убрать ограничения

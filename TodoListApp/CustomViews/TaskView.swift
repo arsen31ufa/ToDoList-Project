@@ -18,9 +18,7 @@ class TaskView: UIView{
         let view = UIView()
         return view
     }()
-    
-
-    
+        
     private lazy var titleTask: UILabel = {
         let label = UILabel()
         label.text = "333"
@@ -143,7 +141,7 @@ extension TaskView: Designable{
         
         timeLabel.snp.makeConstraints { make in
             make.top.equalTo(conteynir).offset(15)
-            make.leading.equalTo(checkmarkButton)
+            make.leading.equalTo(conteynir).offset(20)
             make.height.equalTo(20)
         }
         
@@ -154,7 +152,7 @@ extension TaskView: Designable{
         
         checkmarkButton.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(10)
-            make.leading.equalTo(conteynir).offset(20)
+            make.centerX.equalTo(timeLabel.snp.centerX)
             make.centerY.equalTo(conteynir)
             make.height.equalTo(15)
             make.width.equalTo(25)
@@ -179,6 +177,10 @@ extension TaskView: Designable{
         }
        
     }
-    
-    
+}
+
+extension TaskView{
+    func warningUpdate(){
+        timeLabel.textColor = .red
+    }
 }

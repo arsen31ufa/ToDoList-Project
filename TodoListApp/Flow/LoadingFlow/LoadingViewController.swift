@@ -21,7 +21,7 @@ class LoadingViewController: UIViewController{
     
     private lazy var helpingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Подсказка: \n".uppercased() + "В настройках можно \nизменить основной цвет \nприложения."
+        label.text = "Подсказка: \n".uppercased() + "Задачу можно удалить \nудерживая кнопку \nОтмена."
         label.font = UIFont(name: CustomFonts.interExtraLight, size: 17)
         label.textAlignment = .left
         label.textColor = .black
@@ -59,8 +59,8 @@ class LoadingViewController: UIViewController{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     private var progressViewWidthConstraint: Constraint?
-
     var presenter: LoadingPresenter!
     
     override func viewDidLoad() {
@@ -113,6 +113,7 @@ extension LoadingViewController: Designable{
             make.height.equalTo(30)
             progressViewWidthConstraint = make.width.equalTo(20).constraint
         }
+        
         goToMenu.snp.makeConstraints { make in
             make.edges.equalTo(progressView)
         }
@@ -134,7 +135,7 @@ extension LoadingViewController {
     }
     
     func progressCompleted() {
-        print(" завершён!")
+        print("завершён!")
         UIView.animate(withDuration: 1) {
             self.progressView.backgroundColor = .black
             self.goToMenu.isHidden = false

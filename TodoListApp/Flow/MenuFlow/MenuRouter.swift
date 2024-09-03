@@ -13,4 +13,8 @@ class menuRouter{
     init(viewcontroller: MenuViewController) {
         self.viewcontroller = viewcontroller
     }
+    func goToSettings(){
+        let vc = SettingsAssembly().makeSettingsViewController()
+        viewcontroller.navigationController?.pushViewController(vc, animated: true)
+    }
 }

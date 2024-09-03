@@ -72,11 +72,9 @@ class CoreDataManager {
         let todoEntityToSave: TodoEntity
         
         if let existingTodo = todoEntity {
-            // Если задача уже существует, обновляем её
             todoEntityToSave = existingTodo
             print("Обновили задачу")
         } else {
-            // Если задача новая, создаём новый объект
             todoEntityToSave = TodoEntity(context: context)
             todoEntityToSave.id = Int16(0)
             todoEntityToSave.userID = Int16(99)
