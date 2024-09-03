@@ -160,18 +160,19 @@ extension TasksBoard: Designable{
 
 extension TasksBoard {
     
-     func configurate(type: taskFormType, todoList: [TodoEntity]) {
+    func configurate(type: taskFormType, todoList: [TodoEntity]) {
         var todoListFilter = [TodoEntity]()
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-        
+        let dayAfterTomorrow = calendar.date(byAdding: .day, value: 2, to: today)!
+
         switch type {
         case .today:
             dayLabel.text = "Сегодня".uppercased()
             dayLabel.textColor = Colors.blackPurple
             currentDateLabel.text = "\(today.formattedDate())"
-            
+            conteynirView.layer.borderColor = Colors.blackPurple.cgColor
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: today)
             }
@@ -180,22 +181,26 @@ extension TasksBoard {
             dayLabel.text = "Завтра".uppercased()
             dayLabel.textColor = .gray
             addButton.isHidden = true
+            conteynirView.layer.borderColor = Colors.lightPurple.cgColor
+
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: tomorrow)
             }
             
         case .future:
             dayLabel.text = "На будущее".uppercased()
-            dayLabel.textColor = .gray
+            dayLabel.textColor = .lightGray
             addButton.isHidden = true
+            conteynirView.layer.borderColor = Colors.lightPurple.cgColor
+            conteynirView.layer.shadowColor = UIColor.clear.cgColor
 
+            
             todoListFilter = todoList.filter { item in
-                return item.date > tomorrow || item.date < today
+                return item.date > dayAfterTomorrow
             }
         }
-        //сортируем по дате
+        
         todoListFilter.sort { $0.date < $1.date }
-
         setUpVstack(with: todoListFilter)
     }
     
@@ -211,14 +216,14 @@ extension TasksBoard {
             if task.date <  Date(){
                 view.warningUpdate()
             }
-
+            
             taskVStack.addArrangedSubview(view)
         }
     }
     
     
     func returnVStackViewCount()-> Int{
-       return taskVStack.subviews.count
+        return taskVStack.subviews.count
     }
 }
 

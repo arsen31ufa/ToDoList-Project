@@ -11,14 +11,14 @@ import UIKit
 protocol TaskViewDelegate{
     func editingLondTapp(todo:TodoEntity)
 }
- 
+
 class TaskView: UIView{
     
     private lazy var conteynir: UIView = {
         let view = UIView()
         return view
     }()
-        
+    
     private lazy var titleTask: UILabel = {
         let label = UILabel()
         label.text = "333"
@@ -78,7 +78,7 @@ class TaskView: UIView{
         guard let todoTask = self.todoTask else {return}
         delegate?.editingLondTapp(todo: todoTask)
     }
-       
+    
     var todoTask: TodoEntity?
     var delegate: TaskViewDelegate?
     
@@ -175,7 +175,7 @@ extension TaskView: Designable{
         goToEditButton.snp.makeConstraints { make in
             make.edges.equalTo(titleTask).inset(10)
         }
-       
+        
     }
 }
 

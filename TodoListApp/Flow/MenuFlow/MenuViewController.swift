@@ -175,9 +175,9 @@ extension MenuViewController {
         let futureTasksCount = futureForm.returnVStackViewCount()
         
         // Высчитываем значения высоты для каждой формы
-        let todayHeight = min(max(CGFloat(todayTasksCount * 100), 80), 350)
-        let tommorowHeight = min(max(CGFloat(tommorowTasksCount * 100), 80), 350)
-        let futureHeight = min(max(CGFloat(futureTasksCount * 100), 80), 550)
+        let todayHeight = min(max(CGFloat(todayTasksCount * 250), 150), 450)
+        let tommorowHeight = min(max(CGFloat(tommorowTasksCount * 250), 150), 350)
+        let futureHeight = min(max(CGFloat(futureTasksCount * 250), 150), 550)
         
         todayForm.snp.updateConstraints { make in
             make.height.equalTo(todayHeight)
@@ -191,6 +191,7 @@ extension MenuViewController {
             make.height.equalTo(futureHeight)
         }
         
-        view.layoutIfNeeded()
-    }
+        UIView.performWithoutAnimation {
+              view.layoutIfNeeded()
+          }    }
 }

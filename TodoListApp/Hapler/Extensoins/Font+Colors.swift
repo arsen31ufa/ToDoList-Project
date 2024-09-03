@@ -14,7 +14,7 @@ struct CustomFonts{
     static let interLight = "Inter-Light"
     static let interMedium = "Inter-Medium"
     static let interRegula = "Inter-Regular"
-
+    
 }
 
 

@@ -80,7 +80,7 @@ class CoreDataManager {
             todoEntityToSave.userID = Int16(99)
             todoEntityToSave.isCompleted = false
             print("Создали задачу")
-
+            
         }
         todoEntityToSave.title = title
         todoEntityToSave.descriptonText = description

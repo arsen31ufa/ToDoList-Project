@@ -117,7 +117,6 @@ class NewTaskView: UIView {
         return textView
     }()
     
-    
     private lazy var dataLabel : UILabel = {
         let label = UILabel()
         label.text = "Дата:"
@@ -144,13 +143,14 @@ class NewTaskView: UIView {
         label.textAlignment = .left
         return label
     }()
+    
     private lazy var timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .compact
         timePicker.tintColor = Colors.blackPurple
         timePicker.date = Date()
-
+        
         let now = Date()
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
@@ -158,12 +158,9 @@ class NewTaskView: UIView {
         
         // Добавляем таргет к datePicker
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-
+        
         return timePicker
     }()
-    
-  
-   
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -195,12 +192,12 @@ class NewTaskView: UIView {
         }
         return button
     }()
-   
+    
     var delegate: NewTaskViewDelegate?
     let todoTask: TodoEntity?
     
     private var longPressTimer: Timer?
-    private var longPressDuration: TimeInterval = 1.0
+    private var longPressDuration: TimeInterval = 0.5
     
     
     init(frame: CGRect = CGRect(x: 0, y: 0, width: DesignConstans.screenWidth, height: DesignConstans.screenHeight), todoTask: TodoEntity? = nil) {
@@ -221,12 +218,12 @@ class NewTaskView: UIView {
 
 extension NewTaskView {
     
-  
-  
+    
+    
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         switch gesture.state {
         case .began:
-            // Начало долгого нажатия: запускаем анимацию изменения цвета и устанавливаем заголовок "Удаление"
+            // Начало долгого нажатия
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 self.cancelButton.backgroundColor = UIColor.red
                 self.cancelButton.setTitle("Удаление", for: .normal)
@@ -234,35 +231,33 @@ extension NewTaskView {
             
             // Запускаем таймер на 3 секунды
             longPressTimer = Timer.scheduledTimer(timeInterval: longPressDuration, target: self, selector: #selector(performDeleteAction), userInfo: nil, repeats: false)
-
+            
         case .ended, .cancelled, .failed:
-            // Удержание завершено раньше или жест отменен: останавливаем таймер, возвращаем цвет и заголовок обратно
+            // Удержание завершено раньше или жест отменен
             longPressTimer?.invalidate()
             longPressTimer = nil
-
+            
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 self.cancelButton.backgroundColor = .black
                 self.cancelButton.setTitle("Отмена", for: .normal)
             })
-
+            
         default:
             break
         }
     }
-
+    
     @objc private func performDeleteAction() {
         print("Удаление  после удержания 3 секунды.")
         guard let task = self.todoTask else { return }
-
+        
         let newTodoList = CoreDataManager.shared.deleteTodoTask(todo: task)
         self.delegate?.saveNewTask(newTodoList: newTodoList)
         self.dissmis()
     }
     
     @objc func saveAction() {
-        // Проверка на наличие текста в поле названия
         guard let title = nameTextField.text, !title.isEmpty else {
-            // Если поле пустое, красим рамку в красный
             nameConteynir.layer.borderColor = UIColor.red.cgColor
             nameConteynir.layer.borderWidth = 2.0
             nameConteynir.shakeView()
@@ -296,8 +291,8 @@ extension NewTaskView {
         delegate?.saveNewTask(newTodoList: newTodoList)
         dissmis()
     }
-
- 
+    
+    
     
     @objc func dissmis(){
         self.removeFromSuperview()
@@ -306,12 +301,11 @@ extension NewTaskView {
     @objc private func dateChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         let today = Date()
-
+        
         let calendar = Calendar.current
         if calendar.isDate(selectedDate, inSameDayAs: today) {
             timePicker.minimumDate = today
         } else {
-            // Если дата в будущем, убрать ограничения
             timePicker.minimumDate = nil
         }
     }
@@ -430,18 +424,18 @@ extension NewTaskView: Designable {
     
     func editingConfiguration(task: TodoEntity?) {
         guard let task = task else { return }
-        // Устанавливаем текст для заголовка и полей
+        
         titleLabel.text = "Редактирование"
         nameTextField.text = task.title
         descriptionTextView.text = task.descriptonText
         
-        // Разделение полной даты на дату и время
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.year, .month, .day], from: task.date)
         let timeComponents = calendar.dateComponents([.hour, .minute], from: task.date)
         
         if let date = calendar.date(from: dateComponents) {
             datePicker.date = date
+            dateChanged(datePicker)
         }
         if let time = calendar.date(from: timeComponents) {
             timePicker.date = time

@@ -159,7 +159,7 @@ extension SettingsViewController {
     
     @objc private func goToBack() {
         presenter?.goToMenu()
-        }
     }
-    
+}
+
 
