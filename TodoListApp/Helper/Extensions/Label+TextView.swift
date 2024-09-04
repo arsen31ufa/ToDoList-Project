@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 extension UILabel {
-    
     func setStrikethrough(_ text: String, isCompleted: Bool) {
         let attributes: [NSAttributedString.Key: Any]
         if isCompleted {

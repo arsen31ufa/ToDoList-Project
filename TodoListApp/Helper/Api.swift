@@ -10,12 +10,12 @@ import Foundation
 class ApiService {
     static let shared = ApiService()
     private init() {}
+    
     var todos = [TodoEntity]()
     
     func fetchTodos(_ completion: @escaping ([TodoEntity]?, String?) -> Void) {
         let saveDataCore = CoreDataManager.shared.fetchTasksFromCoreData()
-        
-        
+        /// Если данные есть -  то не грузим api
         if !saveDataCore.isEmpty {
             self.todos = saveDataCore
             print("данные уже есть")

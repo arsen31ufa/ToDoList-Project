@@ -18,7 +18,10 @@ protocol TasksBoardAddTask_delegate{
     func isEditingTask(task: TodoEntity)
 }
 
+
+/// TasksBoard - форма для размещения задач на экране
 class TasksBoard: UIView{
+    //MARK: UI+Init
     
     private lazy var conteynirView: UIView = {
         let view = UIView()
@@ -74,7 +77,6 @@ class TasksBoard: UIView{
         return stack
     }()
     
-    
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "addButton"), for: .normal)
@@ -82,9 +84,6 @@ class TasksBoard: UIView{
         return button
     }()
     
-    @objc func addButtonAction(){
-        delegate?.addNewTask()
-    }
     
     private let dataProperty:taskFormType
     private let todoList:[TodoEntity]
@@ -160,13 +159,14 @@ extension TasksBoard: Designable{
 
 extension TasksBoard {
     
+    
     func configurate(type: taskFormType, todoList: [TodoEntity]) {
         var todoListFilter = [TodoEntity]()
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
         let dayAfterTomorrow = calendar.date(byAdding: .day, value: 2, to: today)!
-
+        
         switch type {
         case .today:
             dayLabel.text = "Сегодня".uppercased()
@@ -182,7 +182,7 @@ extension TasksBoard {
             dayLabel.textColor = .gray
             addButton.isHidden = true
             conteynirView.layer.borderColor = Colors.lightPurple.cgColor
-
+            
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: tomorrow)
             }
@@ -193,7 +193,7 @@ extension TasksBoard {
             addButton.isHidden = true
             conteynirView.layer.borderColor = Colors.lightPurple.cgColor
             conteynirView.layer.shadowColor = UIColor.clear.cgColor
-
+            
             
             todoListFilter = todoList.filter { item in
                 return item.date > dayAfterTomorrow
@@ -225,10 +225,15 @@ extension TasksBoard {
     func returnVStackViewCount()-> Int{
         return taskVStack.subviews.count
     }
+    
+    
+    @objc func addButtonAction(){
+        delegate?.addNewTask()
+    }
 }
 
 extension TasksBoard: TaskViewDelegate{
-    func editingLondTapp(todo: TodoEntity) {
+    func goToEditTaskTapp(todo: TodoEntity) {
         delegate?.isEditingTask(task: todo)
     }
     

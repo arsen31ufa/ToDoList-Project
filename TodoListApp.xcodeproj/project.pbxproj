@@ -139,7 +139,7 @@
 				9E5F82E82C82B2EF00285147 /* Info.plist */,
 				9E5F82DA2C82B2EE00285147 /* AppDelegate.swift */,
 				9EF2AA3A2C82BD58004B991F /* Models */,
-				9EF2AA362C82BC03004B991F /* Hapler */,
+				9EF2AA362C82BC03004B991F /* Helper */,
 				9E75D07C2C8412EF00AFA622 /* CustomViews */,
 				9EF2AA342C82BBC3004B991F /* Flow */,
 				9EF2AA332C82BBAD004B991F /* Resourses */,
@@ -249,14 +249,14 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
-		9EF2AA362C82BC03004B991F /* Hapler */ = {
+		9EF2AA362C82BC03004B991F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				9E75D04E2C82D12500AFA622 /* CoreData */,
-				9EF2AA3D2C82C9AB004B991F /* Extensoins */,
+				9EF2AA3D2C82C9AB004B991F /* Extensions */,
 				9EF2AA382C82BC8E004B991F /* Api.swift */,
 			);
-			path = Hapler;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		9EF2AA3A2C82BD58004B991F /* Models */ = {
@@ -267,7 +267,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		9EF2AA3D2C82C9AB004B991F /* Extensoins */ = {
+		9EF2AA3D2C82C9AB004B991F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				9E75D0712C82FDE100AFA622 /* Font+Colors.swift */,
@@ -275,7 +275,7 @@
 				9E75D0612C82F56100AFA622 /* Design+View.swift */,
 				9E07D4A32C8587FB00918363 /* Label+TextView.swift */,
 			);
-			path = Extensoins;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -567,7 +567,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -587,11 +587,13 @@
 				DEVELOPMENT_TEAM = JC7MTK2ADS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoListApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodoList;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -615,11 +617,13 @@
 				DEVELOPMENT_TEAM = JC7MTK2ADS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoListApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodoList;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -740,8 +744,7 @@
 				9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */,
 			);
 			currentVersion = 9E75D0522C82DCA200AFA622 /* TodoCoreData.xcdatamodel */;
-			name = TodoCoreData.xcdatamodeld;
-			path = /Users/havedope/Desktop/TodoListApp/TodoList/TodoListApp/Hapler/CoreData/TodoCoreData.xcdatamodeld;
+			path = TodoCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

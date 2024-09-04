@@ -4,6 +4,7 @@ import SnapKit
 
 class LoadingViewController: UIViewController{
     
+    //MARK: UI+Init
     private lazy var background: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "backgraundImage")
@@ -46,11 +47,6 @@ class LoadingViewController: UIViewController{
         button.isHidden = true
         return button
     }()
-    
-    @objc func goToMenuAction(){
-        presenter.goToMenu()
-    }
-    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -121,6 +117,7 @@ extension LoadingViewController: Designable{
 }
 
 extension LoadingViewController {
+    //MARK: Func
     func updateProgress(to progress: CGFloat) {
         let fullWidth = view.frame.width - 40
         progressViewWidthConstraint?.update(offset: fullWidth * progress)
@@ -132,6 +129,10 @@ extension LoadingViewController {
                 self.progressCompleted()
             }
         }
+    }
+    
+    @objc func goToMenuAction(){
+        presenter.goToMenu()
     }
     
     func progressCompleted() {

@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 
 protocol TaskViewDelegate{
-    func editingLondTapp(todo:TodoEntity)
+    func goToEditTaskTapp(todo:TodoEntity)
 }
 
+/// TaskView - Представление задачи как элемента в TasksBoard View
 class TaskView: UIView{
     
+    //MARK: UI+Init
     private lazy var conteynir: UIView = {
         let view = UIView()
         return view
@@ -73,11 +75,6 @@ class TaskView: UIView{
         return button
     }()
     
-    @objc func tapped(){
-        print("tapped")
-        guard let todoTask = self.todoTask else {return}
-        delegate?.editingLondTapp(todo: todoTask)
-    }
     
     var todoTask: TodoEntity?
     var delegate: TaskViewDelegate?
@@ -92,35 +89,9 @@ class TaskView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func tappCheackMark() {
-        guard let task = todoTask else { return }
-        task.isCompleted.toggle()
-        update()
-        do {
-            try task.managedObjectContext?.save()
-            print(task)
-        } catch {
-            print("Failed to save task completion status: \(error)")
-        }
-    }
     
-    func configurate(todo: TodoEntity){
-        self.todoTask = todo
-        dateLabel.text = "\(todo.date.formattedDate())"
-        timeLabel.text = "\(todo.date.formattedTime())"
-        update()
-    }
-    
-    func update() {
-        guard let task = todoTask else { return }
-        let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
-        checkmarkButton.setImage(UIImage(named: imageName), for: .normal)
-        
-        let descriptionText = task.descriptonText?.isEmpty == true ? "Нет заметки" : task.descriptonText!
-        titleTask.setStrikethrough(task.title ?? "", isCompleted: task.isCompleted)
-        descriptionTextView.setStrikethrough(descriptionText, isCompleted: task.isCompleted)
-    }
 }
+
 
 extension TaskView: Designable{
     func addSubViews() {
@@ -180,7 +151,46 @@ extension TaskView: Designable{
 }
 
 extension TaskView{
+    ///Смена цвета времени на красный
     func warningUpdate(){
         timeLabel.textColor = .red
+    }
+}
+
+//MARK: Func
+extension TaskView{
+    
+    @objc func tapped(){
+        guard let todoTask = self.todoTask else {return}
+        delegate?.goToEditTaskTapp(todo: todoTask)
+    }
+    
+    @objc func tappCheackMark() {
+        guard let task = todoTask else { return }
+        task.isCompleted.toggle()
+        update()
+        do {
+            try task.managedObjectContext?.save()
+            print(task)
+        } catch {
+            print("Failed to save task completion status: \(error)")
+        }
+    }
+    
+    func configurate(todo: TodoEntity){
+        self.todoTask = todo
+        dateLabel.text = "\(todo.date.formattedDate())"
+        timeLabel.text = "\(todo.date.formattedTime())"
+        update()
+    }
+    
+    func update() {
+        guard let task = todoTask else { return }
+        let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
+        checkmarkButton.setImage(UIImage(named: imageName), for: .normal)
+        
+        let descriptionText = task.descriptonText?.isEmpty == true ? "Нет заметки" : task.descriptonText!
+        titleTask.setStrikethrough(task.title ?? "", isCompleted: task.isCompleted)
+        descriptionTextView.setStrikethrough(descriptionText, isCompleted: task.isCompleted)
     }
 }

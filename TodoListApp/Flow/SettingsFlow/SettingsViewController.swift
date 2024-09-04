@@ -11,7 +11,7 @@ import SnapKit
 
 
 class SettingsViewController: UIViewController{
-    
+    //MARK: UI+Init
     private lazy var background: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "settingBackground")
@@ -138,6 +138,7 @@ extension SettingsViewController:Designable{
 }
 
 extension SettingsViewController {
+    //Ссылочки
     private func decodeBase64(_ base64String: String) -> String? {
         guard let data = Data(base64Encoded: base64String) else { return nil }
         return String(data: data, encoding: .utf8)

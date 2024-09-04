@@ -18,6 +18,7 @@ class MenuPresenter{
         self.router = router
         self.todoList = todoList
     }
+    
     func goToSettings(){
         router.goToSettings()
     }

@@ -13,9 +13,10 @@ import CustomBlurEffectView
 protocol NewTaskViewDelegate{
     func saveNewTask(newTodoList: [TodoEntity])
 }
-
+///NewTaskView - Форма для создания новой задачи и редактирвоания
 
 class NewTaskView: UIView {
+    //MARK: UI+Init
     
     private lazy var blurView: UIView = {
         let view = UIView()
@@ -132,6 +133,8 @@ class NewTaskView: UIView {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.tintColor = Colors.blackPurple
         datePicker.minimumDate = Date()
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        
         return datePicker
     }()
     
@@ -155,9 +158,6 @@ class NewTaskView: UIView {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
         timePicker.minimumDate = calendar.date(from: components)
-        
-        // Добавляем таргет к datePicker
-        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
         return timePicker
     }()
@@ -210,15 +210,12 @@ class NewTaskView: UIView {
         
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension NewTaskView {
-    
-    
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         switch gesture.state {
@@ -247,8 +244,9 @@ extension NewTaskView {
         }
     }
     
+    ///Удаление задачи из кордаты
     @objc private func performDeleteAction() {
-        print("Удаление  после удержания 3 секунды.")
+        print("Удаление  после удержания 3 в секунды")
         guard let task = self.todoTask else { return }
         
         let newTodoList = CoreDataManager.shared.deleteTodoTask(todo: task)
@@ -256,6 +254,7 @@ extension NewTaskView {
         self.dissmis()
     }
     
+    ///проверка на наличие данных и сохранение  в кордату
     @objc func saveAction() {
         guard let title = nameTextField.text, !title.isEmpty else {
             nameConteynir.layer.borderColor = UIColor.red.cgColor
@@ -292,12 +291,12 @@ extension NewTaskView {
         dissmis()
     }
     
-    
-    
+    ///Закрывает вью
     @objc func dissmis(){
         self.removeFromSuperview()
     }
     
+    ///Ограничения на минимальный выбор даты у таймера
     @objc private func dateChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         let today = Date()
@@ -359,7 +358,6 @@ extension NewTaskView: Designable {
             make.top.leading.equalTo(conteynirView).offset(20)
             make.height.equalTo(30)
         }
-        
         
         nameConteynir.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(10)
@@ -482,7 +480,3 @@ extension NewTaskView: UITextViewDelegate {
         return true
     }
 }
-
-#Preview( body: {
-    NewTaskView()
-})

@@ -11,6 +11,7 @@ import SnapKit
 
 class MenuViewController:UIViewController{
     
+    //MARK: UI+Init
     private lazy var settingsButton:UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "settingsButton"), for: .normal)
@@ -41,6 +42,7 @@ class MenuViewController:UIViewController{
         return view
     }()
     
+    //Создаем формы
     private lazy var todayForm: TasksBoard = {
         let view = TasksBoard(dataProperty: .today, todoList: self.todoList )
         view.delegate = self
@@ -58,10 +60,6 @@ class MenuViewController:UIViewController{
         view.delegate = self
         return view
     }()
-    
-    @objc func goToSettings(){
-        presenter.goToSettings()
-    }
     
     var presenter: MenuPresenter!
     var todoList = [TodoEntity]() {
@@ -158,11 +156,19 @@ extension MenuViewController:TasksBoardAddTask_delegate{
 extension MenuViewController:NewTaskViewDelegate{
     func saveNewTask(newTodoList: [TodoEntity]) {
         self.todoList = newTodoList
+        DispatchQueue.main.async {
+            self.UpdateView(todoList: newTodoList)
+            
+        }
+        
     }
     
 }
 extension MenuViewController {
     
+    @objc func goToSettings(){
+        presenter.goToSettings()
+    }
     
     func UpdateView(todoList: [TodoEntity]) {
         todayForm.configurate(type: .today, todoList: todoList)
@@ -179,6 +185,7 @@ extension MenuViewController {
         let tommorowHeight = min(max(CGFloat(tommorowTasksCount * 250), 150), 350)
         let futureHeight = min(max(CGFloat(futureTasksCount * 250), 150), 550)
         
+        //Меняем констреинты
         todayForm.snp.updateConstraints { make in
             make.height.equalTo(todayHeight)
         }
@@ -192,6 +199,6 @@ extension MenuViewController {
         }
         
         UIView.performWithoutAnimation {
-              view.layoutIfNeeded()
-          }    }
+            view.layoutIfNeeded()
+        }    }
 }

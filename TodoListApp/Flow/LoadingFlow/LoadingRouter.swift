@@ -14,6 +14,8 @@ class LoadingRouter{
     init(viewController: LoadingViewController) {
         self.viewController = viewController
     }
+    
+    // Переход в меню
     func goToMenu(todoList:[TodoEntity]){
         let controller = UINavigationController(rootViewController:MenuAssembly().makeMenuViewController(todoList: todoList))
         controller.navigationBar.isHidden = true

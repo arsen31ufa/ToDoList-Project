@@ -59,10 +59,10 @@ final class TodoEntityTests: XCTestCase {
 
 
 final class TasksBoardTests: XCTestCase {
-
+    
     var tasksBoard: TasksBoard!
     var context: NSManagedObjectContext!
-
+    
     override func setUpWithError() throws {
         super.setUp()
         
@@ -75,17 +75,17 @@ final class TasksBoardTests: XCTestCase {
             }
         }
         context = persistentContainer.viewContext
-
+        
         // Создаем тестовый TasksBoard
         tasksBoard = TasksBoard(dataProperty: .today, todoList: [])
     }
-
+    
     override func tearDownWithError() throws {
         tasksBoard = nil
         context = nil
         super.tearDown()
     }
-
+    
     func testSetUpVstack() throws {
         let todo1 = TodoEntity(context: context)
         todo1.id = 1
@@ -94,7 +94,7 @@ final class TasksBoardTests: XCTestCase {
         todo1.descriptonText = "Description 1"
         todo1.date = Date()
         todo1.isCompleted = false
-
+        
         let todo2 = TodoEntity(context: context)
         todo2.id = 2
         todo2.userID = 2
@@ -102,14 +102,14 @@ final class TasksBoardTests: XCTestCase {
         todo2.descriptonText = "Description 2"
         todo2.date = Date()
         todo2.isCompleted = false
-
+        
         try context.save()
-
+        
         let todoList = [todo1, todo2]
-
+        
         tasksBoard = TasksBoard(dataProperty: .today, todoList: todoList)
         tasksBoard.setUpVstack(with: todoList)
-
+        
         XCTAssertEqual(tasksBoard.returnVStackViewCount(), 2, "Получили 2 таски ! ")
     }
 }
