@@ -2,7 +2,7 @@
 //  TaskBoard.swift
 //  TodoListApp
 //
-//  Created by Have Dope on 01.09.2024.
+//  Created by Ars
 //
 
 import Foundation
@@ -26,7 +26,7 @@ class TasksBoard: UIView{
     private lazy var conteynirView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.borderColor = Colors.lightPurple.cgColor
+        view.layer.borderColor = Colors.lightRed.cgColor
         view.layer.borderWidth = 1
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.3
@@ -170,9 +170,9 @@ extension TasksBoard {
         switch type {
         case .today:
             dayLabel.text = "Сегодня".uppercased()
-            dayLabel.textColor = Colors.blackPurple
+            dayLabel.textColor = Colors.darkRed
             currentDateLabel.text = "\(today.formattedDate())"
-            conteynirView.layer.borderColor = Colors.blackPurple.cgColor
+            conteynirView.layer.borderColor = Colors.darkRed.cgColor
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: today)
             }
@@ -181,7 +181,7 @@ extension TasksBoard {
             dayLabel.text = "Завтра".uppercased()
             dayLabel.textColor = .gray
             addButton.isHidden = true
-            conteynirView.layer.borderColor = Colors.lightPurple.cgColor
+            conteynirView.layer.borderColor = Colors.lightRed.cgColor
             
             todoListFilter = todoList.filter { item in
                 return calendar.isDate(item.date, inSameDayAs: tomorrow)
@@ -191,7 +191,7 @@ extension TasksBoard {
             dayLabel.text = "На будущее".uppercased()
             dayLabel.textColor = .lightGray
             addButton.isHidden = true
-            conteynirView.layer.borderColor = Colors.lightPurple.cgColor
+            conteynirView.layer.borderColor = Colors.lightRed.cgColor
             conteynirView.layer.shadowColor = UIColor.clear.cgColor
             
             

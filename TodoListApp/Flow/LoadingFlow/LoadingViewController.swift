@@ -7,7 +7,7 @@ class LoadingViewController: UIViewController{
     //MARK: UI+Init
     private lazy var background: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgraundImage")
+        imageView.image = UIImage(named: "backgroundImage")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -22,7 +22,7 @@ class LoadingViewController: UIViewController{
     
     private lazy var helpingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Подсказка: \n".uppercased() + "Задачу можно удалить \nудерживая кнопку \nОтмена."
+        label.text = "Привет! \n".uppercased() + "Для начала нажмите кнопку 'Продолжить'"
         label.font = UIFont(name: CustomFonts.interExtraLight, size: 17)
         label.textAlignment = .left
         label.textColor = .black
@@ -32,7 +32,7 @@ class LoadingViewController: UIViewController{
     
     private lazy var progressView: UIView = {
         let view = UIView()
-        view.backgroundColor = Colors.lightPurple
+        view.backgroundColor = Colors.lightRed
         view.layer.cornerRadius = 15
         return view
     }()
@@ -106,7 +106,7 @@ extension LoadingViewController: Designable{
         progressView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
             make.leading.equalToSuperview().offset(20)
-            make.height.equalTo(30)
+            make.height.equalTo(50)
             progressViewWidthConstraint = make.width.equalTo(20).constraint
         }
         

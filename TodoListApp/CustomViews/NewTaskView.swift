@@ -2,7 +2,7 @@
 //  NewTaskView.swift
 //  TodoListApp
 //
-//  Created by Have Dope on 01.09.2024.
+//  Created by Ars
 //
 
 import Foundation
@@ -131,7 +131,7 @@ class NewTaskView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
-        datePicker.tintColor = Colors.blackPurple
+        datePicker.tintColor = Colors.darkRed
         datePicker.minimumDate = Date()
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
@@ -151,7 +151,7 @@ class NewTaskView: UIView {
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .compact
-        timePicker.tintColor = Colors.blackPurple
+        timePicker.tintColor = Colors.darkRed
         timePicker.date = Date()
         
         let now = Date()
@@ -167,7 +167,7 @@ class NewTaskView: UIView {
         button.setTitle("Сохранить", for: .normal)
         button.titleLabel?.font = UIFont(name: CustomFonts.interMedium, size: 17)
         button.titleLabel?.textAlignment = .center
-        button.backgroundColor = Colors.blackPurple
+        button.backgroundColor = Colors.darkRed
         button.layer.cornerRadius = 15
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1, height: 4)
@@ -454,7 +454,7 @@ extension NewTaskView: UITextFieldDelegate {
 // MARK: - UITextViewDelegate
 extension NewTaskView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Взять на работу Никиту Зиганшина, он ведь очень сильно хочет к вам на работу" {
+        if textView.text == "Текст №1" {
             textView.text = ""
             textView.textColor = .black
         }
@@ -462,7 +462,7 @@ extension NewTaskView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Взять на работу Никиту Зиганшина, он ведь очень сильно хочет к вам на работу"
+            textView.text = "Текст №2"
             textView.textColor = .gray
         }
     }

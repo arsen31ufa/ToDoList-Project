@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  TodoListApp
 //
-//  Created by Have Dope on 03.09.2024.
+//  Created by Ars
 //
 
 import Foundation
@@ -29,21 +29,21 @@ class SettingsViewController: UIViewController{
     
     private lazy var telegramButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "telegram"), for: .normal)
+        button.setImage(UIImage(named: "telegramLogo"), for: .normal)
         button.addTarget(self, action: #selector(telegramButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private lazy var hhButton: UIButton = {
+    private lazy var githubButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "hh"), for: .normal)
-        button.addTarget(self, action: #selector(hhButtonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "githubLogo"), for: .normal)
+        button.addTarget(self, action: #selector(githubButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var helpingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Привет! \n".uppercased() + "Меня зовут Никита, \nи я очень сильно хочу работать в Вашей компании."
+        label.text = "Здравствуйте! \n".uppercased() + "Если возникли вопросы, \nвы можете обратиться к разработчику:)."
         label.font = UIFont(name: CustomFonts.interExtraLight, size: 17)
         label.textAlignment = .left
         label.textColor = .black
@@ -87,7 +87,7 @@ extension SettingsViewController:Designable{
          backButton,
          titleLabel,
          telegramButton,
-         hhButton,
+         githubButton,
          helpingLabel].forEach(view.addSubview)
     }
     
@@ -114,20 +114,20 @@ extension SettingsViewController:Designable{
         
         telegramButton.snp.makeConstraints { make in
             make.top.equalTo(background.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.height.equalTo(45)
-            make.width.equalTo(200)
+            make.leading.equalToSuperview().offset(60)
+            make.height.equalTo(65)
+            make.width.equalTo(65)
         }
         
-        hhButton.snp.makeConstraints { make in
-            make.top.equalTo(telegramButton.snp.bottom).offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(45)
-            make.width.equalTo(200)
+        githubButton.snp.makeConstraints { make in
+            make.top.equalTo(background.snp.bottom).offset(20)
+            make.trailing.equalToSuperview().inset(60)
+            make.height.equalTo(75)
+            make.width.equalTo(75)
         }
         
         helpingLabel.snp.makeConstraints { make in
-            make.top.equalTo(hhButton.snp.bottom).offset(20)
+            make.top.equalTo(githubButton.snp.bottom).offset(20)
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
@@ -145,14 +145,14 @@ extension SettingsViewController {
     }
     
     @objc private func telegramButtonTapped() {
-        let encodedURL = "aHR0cHM6Ly90Lm1lL2hlYXZ5ZG9wZWdlc3Npb24="
+        let encodedURL = "aHR0cHM6Ly93ZWIudGVsZWdyYW0ub3JnLw==="
         if let urlString = decodeBase64(encodedURL), let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
     }
     
-    @objc private func hhButtonTapped() {
-        let encodedURL = "aHR0cHM6Ly9zcGIuaHgucnUvcmVzdW1lLzQxOWQwZDJlZmYwYmIwNjg0MjAwMzllZDFmN2E3YTU2MzQ3MzU5P2N1c3RvbURvbWFpbi0x"
+    @objc private func githubButtonTapped() {
+        let encodedURL = "aHR0cHM6Ly9naXRodWIuY29tL2Fyc2VuMzF1ZmE="
         if let urlString = decodeBase64(encodedURL), let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }

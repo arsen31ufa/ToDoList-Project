@@ -2,7 +2,7 @@
 //  TaskView.swift
 //  TodoListApp
 //
-//  Created by Have Dope on 01.09.2024.
+//  Created by Ars
 //
 
 import Foundation
@@ -46,7 +46,7 @@ class TaskView: UIView{
         let label = UILabel()
         label.text = "333"
         label.font = UIFont(name: CustomFonts.interLight, size: 15)
-        label.textColor = Colors.blackPurple
+        label.textColor = Colors.darkRed
         label.textAlignment = .left
         return label
     }()
@@ -125,7 +125,7 @@ extension TaskView: Designable{
             make.top.equalTo(timeLabel.snp.bottom).offset(10)
             make.centerX.equalTo(timeLabel.snp.centerX)
             make.centerY.equalTo(conteynir)
-            make.height.equalTo(15)
+            make.height.equalTo(25)
             make.width.equalTo(25)
         }
         
@@ -186,7 +186,7 @@ extension TaskView{
     
     func update() {
         guard let task = todoTask else { return }
-        let imageName = task.isCompleted ? "yesCompilted" : "noCoplited"
+        let imageName = task.isCompleted ? "completed" : "notCompleted"
         checkmarkButton.setImage(UIImage(named: imageName), for: .normal)
         
         let descriptionText = task.descriptonText?.isEmpty == true ? "Нет заметки" : task.descriptonText!

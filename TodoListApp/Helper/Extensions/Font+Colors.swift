@@ -19,8 +19,8 @@ struct CustomFonts{
 
 
 struct Colors{
-    static let lightPurple = UIColor(hexString: "E3B4FF")
-    static let blackPurple = UIColor(hexString: "AD26FF")
+    static let lightRed = UIColor(hexString: "FF2678")
+    static let darkRed = UIColor(hexString: "D91B00")
 }
 
 
